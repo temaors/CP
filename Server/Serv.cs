@@ -70,7 +70,8 @@ namespace Server
                                         (builder.ToString() == "SELECT ABONEMENT") ||
                                         (builder.ToString() == "ADD ABONEMENT") ||
                                         (builder.ToString() == "DELETE ABONEMENT") ||
-                                        (builder.ToString() == "UPDATE ABONEMENT")))
+                                        (builder.ToString() == "UPDATE ABONEMENT") ||
+                                        (builder.ToString() == "READ CLIENTS")))
                     {
                         command = builder.ToString();
                         ++status;
@@ -81,6 +82,14 @@ namespace Server
                         {
                             switch (command)
                             {
+                                case "READ CLIENTS":
+                                    {
+                                        DataTable dataTable = SqlCommander.GetClients("ALL");
+                                        byte[] responseData = GetBinaryFormatData(dataTable);
+                                        handler.Send(responseData);
+                                        Clear(trainer, Abonement, client, logIn, expert);
+                                    }
+                                    break;
                                 case "GET CLIENT INFO":
                                     {
                                         client.Search = builder.ToString();
@@ -553,7 +562,9 @@ namespace Server
             dt.RemotingFormat = SerializationFormat.Binary;
             using (MemoryStream ms = new MemoryStream())
             {
+#pragma warning disable SYSLIB0011 // Тип или член устарел
                 bFormat.Serialize(ms, dt);
+#pragma warning restore SYSLIB0011 // Тип или член устарел
                 outList = ms.ToArray();
             }
             return outList;

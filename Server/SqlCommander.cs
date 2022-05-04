@@ -223,13 +223,13 @@ namespace Server
             SqlCommand sqlCommand = new SqlCommand();
             try
             {
-                Console.WriteLine("Запрос данных о пользователях. ");
+                Console.WriteLine("Запрос данных о пользователях.");
                 if (sqlInfo == "All")
                 {
-                    sqlCommand.CommandText = "SELECT * FROM [clients]";
+                    sqlCommand.CommandText = "SELECT * FROM [Clients]";
                 }
                 else
-                    sqlCommand.CommandText = "SELECT * FROM [Employees] Where access = '1'";
+                    sqlCommand.CommandText = "SELECT * FROM [Clients] Where access = '1'";
 
                 sqlCommand.Connection = sqlConnection;
             }
@@ -238,9 +238,8 @@ namespace Server
                 Console.WriteLine(ex.Message);
             }
             SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
-            DataTable dataTable = new DataTable("Employees");
+            DataTable dataTable = new DataTable("Clients");
             sqlDataAdapter.Fill(dataTable);
-
             return dataTable;
         }
 

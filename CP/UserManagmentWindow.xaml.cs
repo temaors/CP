@@ -25,7 +25,7 @@ namespace CP
         {
             InitializeComponent();
             ReadInfo("All");
-            ReadInfo("Users");
+            //ReadInfo("Users");
         }
 
         private void ReadInfo(string info)
@@ -33,10 +33,11 @@ namespace CP
             ClientObject.SendRequestToServer("READ CLIENTS");
             System.Threading.Thread.Sleep(timeout);
             DataTable dataTable = ClientObject.SendSelectRequestToServer(info);
+            System.Threading.Thread.Sleep(timeout);
             if (info == "All")
-                EmployesTable_Del.ItemsSource = dataTable.DefaultView;
+                ClientsTable_Del.ItemsSource = dataTable.DefaultView;
             else
-                EmployesTable_Red.ItemsSource = dataTable.DefaultView;
+                ClientsTable_Red.ItemsSource = dataTable.DefaultView;
         }
 
         private void RefreshRed_Click(object sender, RoutedEventArgs e)
@@ -53,40 +54,40 @@ namespace CP
         {
             if (DelID.Text == "")
             {
-                DelEmpLabel.Content = "Поле Id пустое";
+                DelClLabel.Content = "Поле Id пустое";
             }
             else
             {
                 if (!Int32.TryParse(DelID.Text, out int res))
                 {
-                    DelEmpLabel.Content = "Id должно быть числом";
+                    DelClLabel.Content = "Id должно быть числом";
                 }
                 else
                 {
-                    ClientObject.SendRequestToServer("DELETE EMPLOYEE");
+                    ClientObject.SendRequestToServer("DELETE CLIENT");
                     System.Threading.Thread.Sleep(timeout);
-                    DelEmpLabel.Content = ClientObject.SendRequestToServer(DelID.Text);
+                    DelClLabel.Content = ClientObject.SendRequestToServer(DelID.Text);
                 }
             }
         }
 
-        private void RedEmploye_Click(object sender, RoutedEventArgs e)
+        private void RedClient_Click(object sender, RoutedEventArgs e)
         {
             if (RedID.Text == "")
             {
-                RedEmpLabel.Content = "Поле Id пустое";
+                RedClLabel.Content = "Поле Id пустое";
             }
             else
             {
                 if (!Int32.TryParse(RedID.Text, out int res))
                 {
-                    RedEmpLabel.Content = "Id должно быть числом";
+                    RedClLabel.Content = "Id должно быть числом";
                 }
                 else
                 {
-                    ClientObject.SendRequestToServer("RED EMPLOYEE ACCESS");
+                    ClientObject.SendRequestToServer("RED CLIENT ACCESS");
                     System.Threading.Thread.Sleep(timeout);
-                    RedEmpLabel.Content = ClientObject.SendRequestToServer(RedID.Text);
+                    RedClLabel.Content = ClientObject.SendRequestToServer(RedID.Text);
                 }
             }
 

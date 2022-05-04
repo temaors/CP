@@ -17,11 +17,13 @@ namespace CP
 
         static private DataTable GetDataTable(byte[] dtData)
         {
-            DataTable dt;
+            DataTable? dt;
             BinaryFormatter bFormat = new BinaryFormatter();
             using (MemoryStream ms = new MemoryStream(dtData))
             {
+#pragma warning disable SYSLIB0011 // Тип или член устарел
                 dt = bFormat.Deserialize(ms) as DataTable;
+#pragma warning restore SYSLIB0011 // Тип или член устарел
             }
             return dt;
         }
