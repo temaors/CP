@@ -25,7 +25,7 @@ namespace CP
         {
             InitializeComponent();
             ReadInfo("All");
-            //ReadInfo("Users");
+            ReadInfo("Users");
         }
 
         private void ReadInfo(string info)

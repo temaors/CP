@@ -31,16 +31,15 @@ namespace CP
         {
             if ((Login1.Text == "") || (Password1.Text == "") || (Surname1.Text == "")
                || (Name1.Text == "") || (Thirdname.Text == "") || (Email1.Text == "") ||
-               (Address1.Text == "") || (PhoneCode1.Text == "") || (Phone1.Text == "") ||
                (Sex.Text == "") || (Age1.Text == ""))
             {
                 RegLable.Content = "Одно из полей является пустым";
             }
             else
             {
-                if (!Int32.TryParse(Phone1.Text, out int res1) || !Int32.TryParse(Age1.Text, out int res2))
+                if (!Int32.TryParse(Age1.Text, out int res2))
                 {
-                    RegLable.Content = "Возраст и телефон должны быть числом!";
+                    RegLable.Content = "Возраст должнен быть числом!";
                 }
                 else if (!Check.IsValidEmailAddress(Email1.Text))
                 {
@@ -61,12 +60,6 @@ namespace CP
                     ClientObject.SendRequestToServer(Thirdname.Text);
                     System.Threading.Thread.Sleep(timeout);
                     ClientObject.SendRequestToServer(Email1.Text);
-                    System.Threading.Thread.Sleep(timeout);
-                    ClientObject.SendRequestToServer(Address1.Text);
-                    System.Threading.Thread.Sleep(timeout);
-                    ClientObject.SendRequestToServer(PhoneCode1.Text);
-                    System.Threading.Thread.Sleep(timeout);
-                    ClientObject.SendRequestToServer(Phone1.Text);
                     System.Threading.Thread.Sleep(timeout);
                     ClientObject.SendRequestToServer(Sex.Text);
                     System.Threading.Thread.Sleep(timeout);
@@ -128,35 +121,11 @@ namespace CP
         {
             if (e.Key == Key.Enter || e.Key == Key.Down)
             {
-                Address1.Focus();
-            }
-        }
-
-        private void TextBox7_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter || e.Key == Key.Down)
-            {
-                PhoneCode1.Focus();
-            }
-        }
-
-        private void TextBox8_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter || e.Key == Key.Down)
-            {
-                Phone1.Focus();
-            }
-        }
-
-        private void TextBox9_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter || e.Key == Key.Down)
-            {
                 Sex.Focus();
             }
         }
 
-        private void TextBox10_KeyDown(object sender, KeyEventArgs e)
+        private void TextBox7_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter || e.Key == Key.Down)
             {
@@ -213,30 +182,6 @@ namespace CP
         }
 
         private void TB8_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Up)
-            {
-                Address1.Focus();
-            }
-        }
-
-        private void TB9_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Up)
-            {
-                PhoneCode1.Focus();
-            }
-        }
-
-        private void TB10_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Up)
-            {
-                Phone1.Focus();
-            }
-        }
-
-        private void TB11_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Up)
             {

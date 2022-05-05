@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:CP"
         mc:Ignorable="d"
         Title="RegistrationWindow" Height="583" Width="400" WindowStartupLocation="CenterScreen">
-    <Grid Background="White">
+    <Grid Background="White" Height="522" VerticalAlignment="Top">
         <TextBlock x:Name="Registration" HorizontalAlignment="Left" Margin="85,0,0,0" TextWrapping="Wrap" Text="Регистрация" VerticalAlignment="Top" Foreground="Black" Height="51" Width="223" FontSize="36" FontWeight="Bold" RenderTransformOrigin="0.355,1.137"/>
         <TextBlock x:Name="Login" HorizontalAlignment="Left" Margin="41,50,0,0" TextWrapping="Wrap" Text="Логин" VerticalAlignment="Top" Foreground="BlueViolet" Height="35" Width="72" FontSize="22" RenderTransformOrigin="0.355,1.137"/>
         <TextBlock x:Name="Password" HorizontalAlignment="Left" Margin="41,85,0,0" TextWrapping="Wrap" Text="Пароль" VerticalAlignment="Top" Foreground="BlueViolet" Height="35" Width="90" FontSize="22" RenderTransformOrigin="0.355,1.137"/>
@@ -14,24 +14,18 @@
         <TextBlock x:Name="Name" HorizontalAlignment="Left" Margin="41,155,0,0" TextWrapping="Wrap" Text="Имя" VerticalAlignment="Top" Foreground="BlueViolet" Height="35" Width="61" FontSize="22" RenderTransformOrigin="0.355,1.137"/>
         <TextBlock x:Name="ThirdName" HorizontalAlignment="Left" Margin="41,190,0,0" TextWrapping="Wrap" Text="Отчество" VerticalAlignment="Top" Foreground="BlueViolet" Height="35" Width="106" FontSize="22" RenderTransformOrigin="0.355,1.137"/>
         <TextBlock x:Name="Email" HorizontalAlignment="Left" Margin="41,225,0,0" TextWrapping="Wrap" Text="Email" VerticalAlignment="Top" Foreground="BlueViolet" Height="35" Width="72" FontSize="22" RenderTransformOrigin="0.355,1.137"/>
-        <TextBlock x:Name="Address" HorizontalAlignment="Left" Margin="41,260,0,0" TextWrapping="Wrap" Text="Адрес" VerticalAlignment="Top" Foreground="BlueViolet" Height="35" Width="72" FontSize="22" RenderTransformOrigin="0.355,1.137"/>
-        <TextBlock x:Name="PhoneCode" HorizontalAlignment="Left" Margin="41,295,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="BlueViolet" Height="35" Width="145" FontSize="22" RenderTransformOrigin="0.355,1.137"><Run Text="Код "/><Run Text="те"/><Run Text="лефона"/></TextBlock>
-        <TextBlock x:Name="Phone" HorizontalAlignment="Left" Margin="41,330,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="BlueViolet" Height="35" Width="106" FontSize="22" RenderTransformOrigin="0.355,1.137"><Run Text="Т"/><Run Text="е"/><Run Text="лефон"/></TextBlock>
-        <TextBlock x:Name="Gender" HorizontalAlignment="Left" Margin="41,365,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="BlueViolet" Height="35" Width="61" FontSize="22" RenderTransformOrigin="0.355,1.137" Text="Пол"/>
-        <TextBlock x:Name="Age" HorizontalAlignment="Left" Margin="41,400,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="BlueViolet" Height="35" Width="90" FontSize="22" RenderTransformOrigin="0.355,1.137" Text="Возраст"/>
-        <Button x:Name="RegButton" Content="Зарегистрироваться" HorizontalAlignment="Center" VerticalAlignment="Top" Width="192" Height="39" Background="BlueViolet" FontWeight="Bold" BorderBrush="White" Click="RegButton_Click" Margin="0,473,0,0"/>
+        <TextBlock x:Name="Gender" HorizontalAlignment="Left" Margin="41,260,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="BlueViolet" Height="35" Width="61" FontSize="22" RenderTransformOrigin="0.355,1.137" Text="Пол"/>
+        <TextBlock x:Name="Age" HorizontalAlignment="Left" Margin="41,295,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="BlueViolet" Height="35" Width="90" FontSize="22" RenderTransformOrigin="0.355,1.137" Text="Возраст"/>
+        <Button x:Name="RegButton" Content="Зарегистрироваться" HorizontalAlignment="Left" VerticalAlignment="Top" Width="192" Height="39" Background="BlueViolet" FontWeight="Bold" BorderBrush="White" Click="RegButton_Click" Margin="100,371,0,0"/>
         <TextBox x:Name="Login1" KeyDown="TextBox1_KeyDown" HorizontalAlignment="Left" Height="29" Margin="196,56,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"/>
         <TextBox x:Name="Surname1" KeyDown="TextBox3_KeyDown" KeyUp="TB3_KeyUp"  HorizontalAlignment="Left" Height="29" Margin="196,125,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"/>
         <TextBox x:Name="Password1" KeyDown="TextBox2_KeyDown"  KeyUp="TB2_KeyUp" HorizontalAlignment="Left" Height="29" Margin="196,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"/>
         <TextBox x:Name="Name1" KeyDown="TextBox4_KeyDown" KeyUp="TB4_KeyUp"  HorizontalAlignment="Left" Height="29" Margin="196,161,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"/>
         <TextBox x:Name="Thirdname" KeyDown="TextBox5_KeyDown"  KeyUp="TB5_KeyUp" HorizontalAlignment="Left" Height="29" Margin="196,195,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"/>
         <TextBox x:Name="Email1" KeyDown="TextBox6_KeyDown"  KeyUp="TB6_KeyUp" HorizontalAlignment="Left" Height="29" Margin="196,230,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"/>
-        <TextBox x:Name="Address1" KeyDown="TextBox7_KeyDown" KeyUp="TB7_KeyUp"  HorizontalAlignment="Left" Height="29" Margin="196,266,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"/>
-        <TextBox x:Name="PhoneCode1" KeyDown="TextBox8_KeyDown" KeyUp="TB8_KeyUp"  HorizontalAlignment="Left" Height="29" Margin="196,301,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"/>
-        <TextBox x:Name="Phone1" KeyDown="TextBox9_KeyDown"  KeyUp="TB9_KeyUp" HorizontalAlignment="Left" Height="29" Margin="196,335,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"/>
-        <TextBox x:Name="Age1"  KeyUp="TB11_KeyUp" HorizontalAlignment="Left" Height="29" Margin="196,403,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"/>
+        <TextBox x:Name="Age1"  KeyUp="TB8_KeyUp" HorizontalAlignment="Left" Height="29" Margin="196,301,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"/>
         <Label x:Name="RegLable" Content="" HorizontalAlignment="Left" Height="35" Margin="10,517,0,0" VerticalAlignment="Top" Width="372" FontSize="18" Foreground="White"/>
-        <ComboBox x:Name="Sex" KeyDown="TextBox10_KeyDown" KeyUp="TB10_KeyUp" HorizontalAlignment="Left" Margin="196,369,0,0" VerticalAlignment="Top" Width="170" Text="Выберите пол" Height="29">
+        <ComboBox x:Name="Sex" KeyDown="TextBox7_KeyDown" KeyUp="TB7_KeyUp" HorizontalAlignment="Left" Margin="196,264,0,0" Width="170" Text="Выберите пол" Height="29" VerticalAlignment="Top">
             <ComboBoxItem Content="Мужской" HorizontalAlignment="Left" Width="168"/>
             <ComboBoxItem Content="Женский" HorizontalAlignment="Left" Width="168"/>
         </ComboBox>

@@ -5,6 +5,7 @@ using System.Net.Sockets;
 using System.Data;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using System.Runtime.Serialization;
 
 namespace Server
 {
@@ -240,24 +241,7 @@ namespace Server
                                                             }
                                                             else
                                                             {
-                                                                if (client.Adress == "")
-                                                                {
-                                                                    client.Adress = builder.ToString();
-                                                                }
-                                                                else
-                                                                {
-                                                                    if (client.PhoneCode == "")
-                                                                    {
-                                                                        client.PhoneCode = builder.ToString();
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        if (client.Phone == "")
-                                                                        {
-                                                                            client.Phone = builder.ToString();
-                                                                        }
-                                                                        else
-                                                                        {
+                                                                
                                                                             if (client.Gender == "")
                                                                             {
                                                                                 client.Gender = builder.ToString();
@@ -277,9 +261,9 @@ namespace Server
                                                                                     Clear(trainer, Abonement, client, logIn, expert);
                                                                                 }
                                                                             }
-                                                                        }
-                                                                    }
-                                                                }
+                                                                        
+                                                                    
+                                                                
                                                             }
                                                         }
                                                     }
@@ -329,32 +313,17 @@ namespace Server
                                                         }
                                                         else
                                                         {
-                                                            if (client.PhoneCode == "")
-                                                            {
-                                                                client.PhoneCode = builder.ToString();
-                                                            }
-                                                            else
-                                                            {
-                                                                if (client.Phone == "")
-                                                                {
-                                                                    client.Phone = builder.ToString();
-                                                                }
-                                                                else
-                                                                {
-                                                                    if (client.Age == "")
-                                                                    {
+                                                            
                                                                         client.Age = builder.ToString();
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        client.Adress = builder.ToString();
+                                               
+                                                                       
                                                                         string response = SqlCommander.AddClient(client);
                                                                         data = Encoding.Unicode.GetBytes(response);
                                                                         handler.Send(data);
                                                                         Clear(trainer, Abonement, client, logIn, expert);
-                                                                    }
-                                                                }
-                                                            }
+                                                                   
+                                                                
+                                                            
                                                         }
                                                     }
                                                 }
@@ -409,31 +378,13 @@ namespace Server
                                                             }
                                                             else
                                                             {
-                                                                if (client.Phone == "")
+                                                                if (client.Age == "")
                                                                 {
-                                                                    client.Phone = builder.ToString();
-                                                                }
-                                                                else
-                                                                {
-                                                                    if (client.PhoneCode == "")
-                                                                    {
-                                                                        client.PhoneCode = builder.ToString();
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        if (client.Age == "")
-                                                                        {
-                                                                            client.Age = builder.ToString();
-                                                                        }
-                                                                        else
-                                                                        {
-                                                                            client.Adress = builder.ToString();
-                                                                            string response = SqlCommander.ChangeClient(client);
-                                                                            data = Encoding.Unicode.GetBytes(response);
-                                                                            handler.Send(data);
-                                                                            Clear(trainer, Abonement, client, logIn, expert);
-                                                                        }
-                                                                    }
+                                                                    client.Age = builder.ToString();
+                                                                    string response = SqlCommander.ChangeClient(client);
+                                                                    data = Encoding.Unicode.GetBytes(response);
+                                                                    handler.Send(data);
+                                                                    Clear(trainer, Abonement, client, logIn, expert);
                                                                 }
                                                             }
                                                         }
@@ -557,14 +508,19 @@ namespace Server
         //Serialize DataTable for Select
         static byte[] GetBinaryFormatData(DataTable dt)
         {
-            BinaryFormatter bFormat = new BinaryFormatter();
+            BinaryFormatter formatter = new BinaryFormatter();
             byte[] outList = null;
-            dt.RemotingFormat = SerializationFormat.Binary;
+            
             using (MemoryStream ms = new MemoryStream())
             {
-#pragma warning disable SYSLIB0011 // Тип или член устарел
-                bFormat.Serialize(ms, dt);
-#pragma warning restore SYSLIB0011 // Тип или член устарел
+                try
+                {
+                    formatter.Serialize(ms, dt);
+                }catch (SerializationException e)
+                {
+                    Console.WriteLine("Failed to serialize. Reason: " + e.Message);
+                    throw;
+                }
                 outList = ms.ToArray();
             }
             return outList;

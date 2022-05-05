@@ -247,7 +247,7 @@ namespace Server
         {
             SqlCommand sqlCommand = new SqlCommand();
             sqlCommand.CommandText = "UPDATE [Person] SET gender = @clGender, name = @clName, surname = @clSurname, thirdname = @clThirdname," +
-                "email = @clEmail, address = @clAddress, phone_code = @clPhoneCode, phone=@clPhone, age=@clAge Where ID = @clId";
+                "email = @clEmail,age=@clAge Where ID = @clId";
 
             sqlCommand.Connection = sqlConnection;
 
@@ -257,9 +257,6 @@ namespace Server
             sqlCommand.Parameters.AddWithValue("@clSurname", client.Surname);
             sqlCommand.Parameters.AddWithValue("@clThirdname", client.Thirdname);
             sqlCommand.Parameters.AddWithValue("@clEmail", client.Email);
-            sqlCommand.Parameters.AddWithValue("@clAddress", client.Adress);
-            sqlCommand.Parameters.AddWithValue("@clPhoneCode", client.PhoneCode);
-            sqlCommand.Parameters.AddWithValue("@clPhone", Convert.ToDecimal(client.Phone));
             sqlCommand.Parameters.AddWithValue("@clAge", Convert.ToDecimal(client.Age));
 
             try
@@ -275,7 +272,7 @@ namespace Server
                 {
                     string response = "База Данных: Данные клиента изменены ";
                     Console.WriteLine(response + " (Id: " + client.ID + ") (Имя клиента: " + client.Name + ") (Фамилия:  " + client.Surname + ") (Отчество: " + client.Thirdname + ") " +
-                        "(Пол: " + client.Gender + ") (Email: " + client.Email + ") (Адрес: " + client.Adress + ") (Код телефона: " + client.PhoneCode + ") (Телефон: " + client.Phone + ") (Возраст: " + client.Age + ")");
+                        "(Пол: " + client.Gender + ") (Email: " + client.Email + ")  (Возраст: " + client.Age + ")");
 
                     return response;
                 }
@@ -291,8 +288,8 @@ namespace Server
         static public string AddClient(Client client)
         {
             SqlCommand sqlCommand = new SqlCommand();
-            sqlCommand.CommandText = "INSERT into [Clients]( gender, name, surname, thirdname, email, address, phone_code, phone, age) " +
-                "VALUES(@clGender, @clName, @clSurname, @clThirdname, @clEmail, @clAddress, @clPhoneCode, @clPhone,@clAge)";
+            sqlCommand.CommandText = "INSERT into [Clients]( gender, name, surname, thirdname, email, age) " +
+                "VALUES(@clGender, @clName, @clSurname, @clThirdname, @clEmail, @clAge)";
 
             sqlCommand.Connection = sqlConnection;
 
@@ -301,9 +298,6 @@ namespace Server
             sqlCommand.Parameters.AddWithValue("@clThirdname", client.Thirdname);
             sqlCommand.Parameters.AddWithValue("@clGender", client.Gender);
             sqlCommand.Parameters.AddWithValue("@clEmail", client.Email);
-            sqlCommand.Parameters.AddWithValue("@clAddress", client.Adress);
-            sqlCommand.Parameters.AddWithValue("@clPhoneCode", client.PhoneCode);
-            sqlCommand.Parameters.AddWithValue("@clPhone", int.Parse(client.Phone));
             sqlCommand.Parameters.AddWithValue("@clAge", int.Parse(client.Age));
 
             try
@@ -311,7 +305,7 @@ namespace Server
                 sqlCommand.ExecuteNonQuery();
                 string response = "База Данных: Добавление Клиента ";
                 Console.WriteLine(response + " (Возраст: " + client.Age + ") (Имя клиента: " + client.Name + ") (Фамилия:  " + client.Surname + ") (Отчество: " + client.Thirdname + ") " +
-                    "(Пол: " + client.Gender + ") (Email: " + client.Email + ") (Адрес: " + client.Adress + ") (Код телефона: " + client.PhoneCode + ") (Телефон: " + client.Phone + ")");
+                    "(Пол: " + client.Gender + ") (Email: " + client.Email + ")");
                 return response;
 
             }
@@ -327,9 +321,9 @@ namespace Server
         {
             SqlCommand sqlCommand = new SqlCommand();
             sqlCommand.CommandText = "INSERT into [Clients](ID, login, password, surname, name," +
-                "thirdname, email, address, phone_code, phone,gender, age, access) " +
+                "thirdname, email, gender, age, access) " +
                 "VALUES(@clID, @clLogin, @clPassword, @clSurname, @clName, @clThirdname, @clEmail, " +
-                "@clAddress, @clPhoneCode, @clPhone, @clGender, @clAge, @clAccess)";
+                "@clGender, @clAge, @clAccess)";
 
             sqlCommand.Connection = sqlConnection;
             Random rnd = new Random();
@@ -341,9 +335,6 @@ namespace Server
             sqlCommand.Parameters.AddWithValue("@clName", client.Name);
             sqlCommand.Parameters.AddWithValue("@clThirdname", client.Thirdname);
             sqlCommand.Parameters.AddWithValue("@clEmail", client.Email);
-            sqlCommand.Parameters.AddWithValue("@clAddress", client.Adress);
-            sqlCommand.Parameters.AddWithValue("@clPhoneCode", int.Parse(client.PhoneCode));
-            sqlCommand.Parameters.AddWithValue("@clPhone", int.Parse(client.Phone));
             sqlCommand.Parameters.AddWithValue("@clGender", client.Gender);
             sqlCommand.Parameters.AddWithValue("@clAge", int.Parse(client.Age));
             sqlCommand.Parameters.AddWithValue("@clAccess", int.Parse(client.Access));

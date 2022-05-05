@@ -16,9 +16,6 @@ namespace Server
                 Thirdname = "";
                 Gender = "";
                 Email = "";
-                Adress = "";
-                PhoneCode = "";
-                Phone = "";
                 Age = "";
                 Login = "";
                 Password = "";
@@ -32,9 +29,6 @@ namespace Server
             public string Thirdname { get; set; }
             public string Gender { get; set; }
             public string Email { get; set; }
-            public string Adress { get; set; }
-            public string PhoneCode { get; set; }
-            public string Phone { get; set; }
             public string Age { get; set; }
             public string Access { get; set; }
             public virtual void Clean()
@@ -46,9 +40,6 @@ namespace Server
                 this.Thirdname = "";
                 this.Gender = "";
                 this.Email = "";
-                this.Adress = "";
-                this.PhoneCode = "";
-                this.Phone = "";
                 this.Age = "";
                 this.ID = "";
                 this.Access = "";

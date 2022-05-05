@@ -3,6 +3,7 @@ using System.Data;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
+using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 
@@ -17,13 +18,19 @@ namespace CP
 
         static private DataTable GetDataTable(byte[] dtData)
         {
-            DataTable? dt;
+            DataTable dt = null;
             BinaryFormatter bFormat = new BinaryFormatter();
             using (MemoryStream ms = new MemoryStream(dtData))
             {
-#pragma warning disable SYSLIB0011 // Тип или член устарел
-                dt = bFormat.Deserialize(ms) as DataTable;
-#pragma warning restore SYSLIB0011 // Тип или член устарел
+                try
+                {
+                    dt = (DataTable)bFormat.Deserialize(ms);
+                }
+                catch (SerializationException e)
+                {
+                    //Console.WriteLine("Failde to deserialize. Reason:" + e.Message);
+                    throw;
+                }
             }
             return dt;
         }
