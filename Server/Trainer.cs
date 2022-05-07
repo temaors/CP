@@ -6,9 +6,23 @@ using System.Threading.Tasks;
 
 namespace Server
 {
-    internal class Trainer : Client
+    internal class Trainer
     {
-        private string Type { get; set; }
-        private double Salary { get; set; }
+        public string ID { get; set; }
+        public string Surname { get; set; }
+        public string Name { get; set; }
+        public string ThirdName { get; set; }
+        public string Type { get; set; }
+        public string Cost { get; set; }
+
+        public void Clean()
+        {
+            ID = "";
+            Surname = "";
+            Name = "";
+            ThirdName = "";
+            Type = "";
+            Cost = "";
+        }
     }
 }

@@ -85,7 +85,7 @@ namespace Server
                             {
                                 case "READ CLIENTS":
                                     {
-                                        DataTable dataTable = SqlCommander.GetClients("ALL");
+                                        DataTable dataTable = SqlCommander.GetClients("All");
                                         byte[] responseData = GetBinaryFormatData(dataTable);
                                         handler.Send(responseData);
                                         Clear(trainer, Abonement, client, logIn, expert);
@@ -118,14 +118,14 @@ namespace Server
                                         Clear(trainer, Abonement, client, logIn, expert);
                                     }
                                     break;
-                                case "RED trainer ACCESS":
-                                    //{
-                                    //    trainer.ID = builder.ToString();
-                                    //    string response = SqlCommander.ChangeEmplAccess(trainer.ID);
-                                    //    data = Encoding.Unicode.GetBytes(response);
-                                    //    handler.Send(data);
-                                    //    Clear(trainer, Abonement, client, logIn, expert);
-                                    //}
+                                case "RED CLIENT ACCESS":
+                                    {
+                                        client.ID = builder.ToString();
+                                        string response = SqlCommander.ChangeEmplAccess(client.ID);
+                                        data = Encoding.Unicode.GetBytes(response);
+                                        handler.Send(data);
+                                        Clear(trainer, Abonement, client, logIn, expert);
+                                    }
                                     break;
                                 case "GET MARKS":
                                     //{
@@ -394,7 +394,7 @@ namespace Server
                                         }
                                     }
                                     break;
-                                case "SELECT Abonement":
+                                case "SELECT ABONEMENT":
                                     {
                                         Abonement.ID = builder.ToString();
                                         DataTable dataTable = SqlCommander.SelectAbonement(Abonement);
@@ -403,7 +403,7 @@ namespace Server
                                         Clear(trainer, Abonement, client, logIn, expert);
                                     }
                                     break;
-                                case "ADD Abonement":
+                                case "ADD ABONEMENT":
                                     {
                                         if (Abonement.Term == "")
                                         {
@@ -417,9 +417,9 @@ namespace Server
                                             }
                                             else
                                             {
-                                                if (Abonement.Price == "")
+                                                if (Abonement.Cost == "")
                                                 {
-                                                    Abonement.Price = builder.ToString();
+                                                    Abonement.Cost = builder.ToString();
                                                 }
                                                 else
                                                 {
@@ -471,9 +471,9 @@ namespace Server
                                                     }
                                                     else
                                                     {
-                                                        if (Abonement.Price == "")
+                                                        if (Abonement.Cost == "")
                                                         {
-                                                            Abonement.Price = builder.ToString();
+                                                            Abonement.Cost = builder.ToString();
                                                             string response = SqlCommander.ChangeAbonement(Abonement);
                                                             data = Encoding.Unicode.GetBytes(response);
                                                             handler.Send(data);

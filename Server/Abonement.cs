@@ -11,16 +11,15 @@ namespace Server
         public string CountOfAttendents { get; set; }
         public string TypeOfTraining { get; set; }
         public string Term { get; set; }
-        public string Price { get; set; }
+        public string Cost { get; set; }
         public string ID { get; set; }
-        public string Search { get; set; }
         public void Clean()
         {
             Term = "";
-            Price = "";
             TypeOfTraining = "";
             ID = "";
             CountOfAttendents = "";
+            Cost = "";
         }
     }
 }

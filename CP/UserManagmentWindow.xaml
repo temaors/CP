@@ -5,30 +5,37 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CP"
         mc:Ignorable="d"
-       Title="UserManagementWindow" Height="412.226" Width="748.35" WindowStartupLocation="CenterScreen">
+       Title="UserManagementWindow" Height="450" Width="900" WindowStartupLocation="CenterScreen">
     <TabControl Margin="-1,2,-1,5">
-        <TabItem Header="Удаление пользователя" Margin="-2,-2,-85,0" Height="22" VerticalAlignment="Top">
+        <TabItem Background="Black" Header="Удаление пользователя" Height="37" VerticalAlignment="Top" Width="300">
             <Grid Background="#FFE5E5E5">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="231*"/>
+                    <ColumnDefinition Width="62*"/>
+                    <ColumnDefinition Width="581*"/>
                 </Grid.ColumnDefinitions>
-                <DataGrid x:Name="ClientsTable_Del" HorizontalAlignment="Left" Height="185" Margin="10,52,0,0" VerticalAlignment="Top" Width="707" />
-                <TextBlock HorizontalAlignment="Left" Margin="18,260,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="25" Width="217"><Run Text="Введите "/><Run Text="ID "/><Run Text="пользователя для удаления"/><Run Text=" "/></TextBlock>
-                <TextBox x:Name="DelID" HorizontalAlignment="Left" Height="35" Margin="264,255,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="104"/>
-                <Button Content="Удалить пользователя" HorizontalAlignment="Left" Margin="409,255,0,0" VerticalAlignment="Top" Width="184" Height="35" Click="Button_Click"/>
-                <Button x:Name="RefreshDel" Content="Обновить" HorizontalAlignment="Left" Margin="597,17,0,0" VerticalAlignment="Top" Width="120" Click="RefreshDel_Click"/>
-                <Label x:Name="DelClLabel" Content="" HorizontalAlignment="Left" Height="31" Margin="18,303,0,0" VerticalAlignment="Top" Width="453"/>
+                <DataGrid x:Name="ClientsTable_Del" HorizontalAlignment="Center" Height="226" Margin="10,52,0,0" VerticalAlignment="Top" Width="839" Grid.ColumnSpan="3" />
+                <TextBlock HorizontalAlignment="Left" Margin="18,323,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="24" Width="217" Grid.ColumnSpan="2"><Run Text="Введите "/><Run Text="ID "/><Run Text="пользователя для удаления"/><Run Text=" "/></TextBlock>
+                <TextBox x:Name="DelID" HorizontalAlignment="Left" Height="36" Margin="35,300,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="104" Grid.ColumnSpan="2" Grid.Column="1"/>
+                <Button Content="Удалить пользователя" HorizontalAlignment="Left" Margin="97,315,0,0" VerticalAlignment="Top" Width="270" Height="28" Click="Button_Click" Grid.Column="2"/>
+                <Button x:Name="RefreshDel" Content="Обновить" HorizontalAlignment="Left" Margin="380,10,0,0" VerticalAlignment="Top" Width="120" Click="RefreshDel_Click" Grid.Column="2"/>
+                <Label x:Name="DelClLabel" Content="" HorizontalAlignment="Left" Height="31" Margin="18,353,0,0" VerticalAlignment="Top" Width="453" Grid.ColumnSpan="3"/>
 
             </Grid>
         </TabItem>
-        <TabItem Header="Изменение роли пользователя"  Margin="83,-2,-165,0">
+        <TabItem Background="Black"  Header="Изменение роли пользователя" Height="37" Width="300">
             <Grid Background="#FFE5E5E5">
-                <DataGrid x:Name="ClientsTable_Red" HorizontalAlignment="Left" Height="185" Margin="10,52,0,0" VerticalAlignment="Top" Width="716" />
-                <TextBlock HorizontalAlignment="Left" Margin="18,267,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="23"><Run Text="Введите "/><Run Text="ID "/><Run Text="пользователя для "/><Run Text="смены роли"/></TextBlock>
-                <TextBox x:Name="RedID" HorizontalAlignment="Left" Height="23" Margin="270,267,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="86"/>
-                <Button x:Name="RedEmploye" Content="Изменить на администратора" HorizontalAlignment="Left" Margin="385,262,0,0" VerticalAlignment="Top" Width="270" Height="28" Click="RedClient_Click" />
-                <Button x:Name="RefreshRed" Content="Обновить" HorizontalAlignment="Left" Margin="613,10,0,0" VerticalAlignment="Top" Width="106" Click="RefreshRed_Click"/>
-                <Label x:Name="RedClLabel" Content="" HorizontalAlignment="Left" Height="26" Margin="18,308,0,0" VerticalAlignment="Top" Width="433"/>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="613*"/>
+                    <ColumnDefinition Width="56*"/>
+                    <ColumnDefinition Width="205*"/>
+                </Grid.ColumnDefinitions>
+                <DataGrid x:Name="ClientsTable_Red" HorizontalAlignment="Left" Height="226" Margin="17,52,0,0" VerticalAlignment="Top" Width="840" Grid.ColumnSpan="3" />
+                <TextBlock HorizontalAlignment="Left" Margin="18,323,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="24"><Run Text="Введите "/><Run Text="ID "/><Run Text="пользователя для "/><Run Text="смены роли"/></TextBlock>
+                <TextBox x:Name="RedID" HorizontalAlignment="Left" Height="23" Margin="268,321,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="104"/>
+                <Button x:Name="RedEmploye" Content="Изменить на администратора" HorizontalAlignment="Left" Margin="383,318,0,0" VerticalAlignment="Top" Width="270" Height="28" Click="RedClient_Click" Grid.ColumnSpan="2" />
+                <Button x:Name="RefreshRed" Content="Обновить" HorizontalAlignment="Left" Margin="16,10,0,0" VerticalAlignment="Top" Width="106" Click="RefreshRed_Click" Grid.Column="2"/>
+                <Label x:Name="RedClLabel" Content="" HorizontalAlignment="Left" Height="26" Margin="18,356,0,0" VerticalAlignment="Top" Width="433"/>
             </Grid>
         </TabItem>
     </TabControl>

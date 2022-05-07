@@ -180,7 +180,7 @@ namespace Server
         static public string DelClient(Client client)
         {
             SqlCommand sqlCommand = new SqlCommand();
-            sqlCommand.CommandText = "DELETE FROM [Person] WHERE Id = @Id";
+            sqlCommand.CommandText = "DELETE FROM [CLIENTS] WHERE Id = @Id";
 
             sqlCommand.Connection = sqlConnection;
             sqlCommand.Parameters.AddWithValue("@Id", client.ID);
