@@ -19,23 +19,16 @@ namespace Server
         static public DataTable SelectClient(Client client)
         {
             SqlCommand sqlCommand = new SqlCommand();
-            if (client.Search == "@")
-            {
-                sqlCommand.CommandText = "SELECT * FROM [Person]";
-            }
-            else
-            {
-                Console.WriteLine("Поиск в таблице Клиент: " + client.Search);
-                sqlCommand.CommandText = "SELECT * FROM [Person] WHERE (surname='" + client.Search + "')";
-            }
+            Console.WriteLine("Поиск в таблице Клиент: " + client.ID);
+            sqlCommand.CommandText = "SELECT * FROM [Clients] WHERE (ID='" + client.ID + "')";
             sqlCommand.Connection = sqlConnection;
 
             SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
 
-            DataTable dataTable = new DataTable("Person");
+            DataTable dataTable = new DataTable("Clients");
             sqlDataAdapter.Fill(dataTable);
 
-            Console.WriteLine("База Данных: Вывод Клиентов ");
+            //Console.WriteLine("База Данных: Вывод Клиентов ");
             return dataTable;
         }
         static public DataTable GetClientInfo(Client client)
@@ -54,20 +47,12 @@ namespace Server
             return dataTable;
         }
         //clientName, clientSurname, clientThirdname, clientGender, clientEmail, clientAdress, clientPhoneCode, clientPhone, clientAge
-        static public DataTable SelectAbonement(Abonement abonement)
+        static public DataTable SelectAbonement()
         {
             SqlCommand sqlCommand = new SqlCommand();
             try
             {
-                if (abonement.Search == "@")
-                {
-                    sqlCommand.CommandText = "SELECT * FROM [Abonement]";
-                }
-                else
-                {
-                    Console.WriteLine("Поиск в таблице Абонементы: " + abonement.Search);
-                    sqlCommand.CommandText = "SELECT * FROM [Abonement] WHERE(ID='" + abonement.Search + "') OR (Type='" + abonement.Search + "') OR (CountOfAttendings='" + abonement.Search + "')";
-                }
+                sqlCommand.CommandText = "SELECT * FROM [Abonements]";
                 sqlCommand.Connection = sqlConnection;
             }
             catch (Microsoft.Data.SqlClient.SqlException ex)
@@ -75,10 +60,29 @@ namespace Server
                 Console.WriteLine(ex.Message);
             }
             SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
-            DataTable dataTable = new DataTable("Abonement");
+            DataTable dataTable = new DataTable("Abonements");
             sqlDataAdapter.Fill(dataTable);
 
             Console.WriteLine("База Данных: Вывод Данных об абонементе");
+            return dataTable;
+        }
+        static public DataTable SelectTrainer()
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            try
+            {
+                sqlCommand.CommandText = "SELECT * FROM [Trainers]";
+                sqlCommand.Connection = sqlConnection;
+            }
+            catch (Microsoft.Data.SqlClient.SqlException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
+            DataTable dataTable = new DataTable("Trainers");
+            sqlDataAdapter.Fill(dataTable);
+
+            Console.WriteLine("База Данных: Вывод Данных о тренере");
             return dataTable;
         }
 
@@ -91,7 +95,7 @@ namespace Server
             sqlCommand.Connection = sqlConnection;
 
             sqlCommand.Parameters.AddWithValue("@abID", abonement.ID);
-            sqlCommand.Parameters.AddWithValue("@abPrice", int.Parse(abonement.Price));
+            sqlCommand.Parameters.AddWithValue("@abPrice", int.Parse(abonement.Cost));
             sqlCommand.Parameters.AddWithValue("@abCountOfAttendings", abonement.CountOfAttendents);
             sqlCommand.Parameters.AddWithValue("@abTerm", abonement.Term);
             sqlCommand.Parameters.AddWithValue("@abTypeOfTraining", abonement.TypeOfTraining);
@@ -99,7 +103,7 @@ namespace Server
             {
                 sqlCommand.ExecuteNonQuery();
                 string response = "База Данных: Добавлены данные об абонементе ";
-                Console.WriteLine(response + " (ID: " + abonement.ID + ") (Тип тренировок: " + abonement.TypeOfTraining + ") (Срок:  " + abonement.Term + ") (Количество посещений: " + abonement.CountOfAttendents + " (Цена: " + abonement.Price + ")");
+                Console.WriteLine(response + " (ID: " + abonement.ID + ") (Тип тренировок: " + abonement.TypeOfTraining + ") (Срок:  " + abonement.Term + ") (Количество посещений: " + abonement.CountOfAttendents + " (Цена: " + abonement.Cost + ")");
                 return response;
             }
             catch (Microsoft.Data.SqlClient.SqlException)
@@ -119,7 +123,7 @@ namespace Server
             sqlCommand.Connection = sqlConnection;
 
             sqlCommand.Parameters.AddWithValue("@abID", abonement.ID);
-            sqlCommand.Parameters.AddWithValue("@abPrice", int.Parse(abonement.Price));
+            sqlCommand.Parameters.AddWithValue("@abPrice", int.Parse(abonement.Cost));
             sqlCommand.Parameters.AddWithValue("@abCountOfAttendings", abonement.CountOfAttendents);
             sqlCommand.Parameters.AddWithValue("@abTerm", abonement.Term);
             sqlCommand.Parameters.AddWithValue("@abTraning", abonement.TypeOfTraining);
@@ -133,7 +137,7 @@ namespace Server
             else
             {
                 string response = "База Данных: Данные об абонементе изменены ";
-                Console.WriteLine(response + " (ID: " + abonement.ID + ") (Тип тренировок: " + abonement.TypeOfTraining + ") (Срок:  " + abonement.Term + ") (Количество посещений: " + abonement.CountOfAttendents + " (Цена: " + abonement.Price + ")");
+                Console.WriteLine(response + " (ID: " + abonement.ID + ") (Тип тренировок: " + abonement.TypeOfTraining + ") (Срок:  " + abonement.Term + ") (Количество посещений: " + abonement.CountOfAttendents + " (Цена: " + abonement.Cost + ")");
                 return response;
             }
         }
@@ -242,8 +246,43 @@ namespace Server
             sqlDataAdapter.Fill(dataTable);
             return dataTable;
         }
-
-        static public string ChangeClient(Client client)
+        static public DataTable GetAbonements(string inf)
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            try
+            {
+                Console.WriteLine("Запрос данных об абонементах.");
+                sqlCommand.CommandText = "SELECT * FROM [Abonements]";
+                sqlCommand.Connection = sqlConnection;
+            }
+            catch (Microsoft.Data.SqlClient.SqlException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
+            DataTable dataTable = new DataTable("Abonements");
+            sqlDataAdapter.Fill(dataTable);
+            return dataTable;
+        }
+        static public DataTable GetTrainers(string inf)
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            try
+            {
+                Console.WriteLine("Запрос данных об тренерах.");
+                sqlCommand.CommandText = "SELECT * FROM [Trainers]";
+                sqlCommand.Connection = sqlConnection;
+            }
+            catch (Microsoft.Data.SqlClient.SqlException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
+            DataTable dataTable = new DataTable("Trainers");
+            sqlDataAdapter.Fill(dataTable);
+            return dataTable;
+        }
+            static public string ChangeClient(Client client)
         {
             SqlCommand sqlCommand = new SqlCommand();
             sqlCommand.CommandText = "UPDATE [Person] SET gender = @clGender, name = @clName, surname = @clSurname, thirdname = @clThirdname," +

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Data;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -20,24 +21,38 @@ namespace CP
     public partial class ClientWindow : Window
     {
         public string workLogin = "";
+        static int timeout = 100;
 
         public ClientWindow(string login)
         {
             InitializeComponent();
             workLogin = login;
+            readInfo();
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        public void readInfo()
+        {
+            //DataTable clientTab = ClientObject.SendSelectRequestToServer("SELECT CLIENT");
+            //System.Threading.Thread.Sleep(timeout);
+            ClientObject.SendRequestToServer("READ ABONEMENTS");
+            System.Threading.Thread.Sleep(timeout);
+            DataTable dataTable2 = ClientObject.SendSelectRequestToServer("All");
+            System.Threading.Thread.Sleep(timeout);
+            AbonementsTable.ItemsSource = dataTable2.DefaultView;
+            ClientObject.SendRequestToServer("READ TRAINERS");
+            System.Threading.Thread.Sleep(timeout);
+            DataTable dataTable1 = ClientObject.SendSelectRequestToServer(workLogin);
+            System.Threading.Thread.Sleep(timeout);
+
+            TrainersTable.ItemsSource = dataTable1.DefaultView;
+        }
+
+        private void newAbonement(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void newTrainer(object sender, RoutedEventArgs e)
         {
 
         }

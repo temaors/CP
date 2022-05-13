@@ -20,7 +20,6 @@
                 <Button Content="Удалить пользователя" HorizontalAlignment="Left" Margin="97,315,0,0" VerticalAlignment="Top" Width="270" Height="28" Click="Button_Click" Grid.Column="2"/>
                 <Button x:Name="RefreshDel" Content="Обновить" HorizontalAlignment="Left" Margin="380,10,0,0" VerticalAlignment="Top" Width="120" Click="RefreshDel_Click" Grid.Column="2"/>
                 <Label x:Name="DelClLabel" Content="" HorizontalAlignment="Left" Height="31" Margin="18,353,0,0" VerticalAlignment="Top" Width="453" Grid.ColumnSpan="3"/>
-
             </Grid>
         </TabItem>
         <TabItem Background="Black"  Header="Изменение роли пользователя" Height="37" Width="300">

@@ -5,10 +5,68 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CP"
         mc:Ignorable="d"
-        Title="Клиент" Height="292.336" Width="262.956" WindowStartupLocation="CenterScreen">
-    <Grid>
-        <Button Content="Личный кабинет" HorizontalAlignment="Left" Margin="44,40,0,0" VerticalAlignment="Top" Width="170" Height="30" Click="Button_Click_2"/>
-        <Button Content="Выбор абонементов" HorizontalAlignment="Left" Margin="44,100,0,0" VerticalAlignment="Top" Width="170" Click="Button_Click" Height="30"/>
-        <Button Content="Выбор тренеров" HorizontalAlignment="Left" Margin="44,159,0,0" VerticalAlignment="Top" Width="170" Height="30" Click="Button_Click_1"/>
-    </Grid>
+        Title="Клиент" Height="450" Width="900" WindowStartupLocation="CenterScreen">
+    <TabControl x:Name="products">
+        <TabItem x:Name="personalTab">
+            <TabItem.Header>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock FontWeight="Bold" FontSize="18" Foreground="Purple">Личный кабинет</TextBlock>
+                </StackPanel>
+            </TabItem.Header>
+            <TabItem.Content>
+                <Grid ShowGridLines="True">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="170"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" HorizontalAlignment="Left" Margin="30">
+                    <TextBlock FontSize="15" Height="30" Width="130">Фамилия:</TextBlock>
+                    <TextBlock FontSize="15" Height="30" Width="130">Имя:</TextBlock>
+                    <TextBlock FontSize="15" Height="30" Width="130">Отчество:</TextBlock>
+                    <TextBlock FontSize="15" Height="30" Width="130">Возраст:</TextBlock>
+                    <TextBlock FontSize="15" Height="30" Width="130">Пол:</TextBlock>
+                    <TextBlock FontSize="15" Height="30" Width="130">Email:</TextBlock>
+                    <TextBlock FontSize="15" Height="30" Width="130">Личный тренер:</TextBlock>
+                    <TextBlock FontSize="15" Height="30" Width="130">Абонемент:</TextBlock>
+                </StackPanel>
+                    <StackPanel Grid.Column="1" HorizontalAlignment="Left" Margin="30">
+                        <TextBox x:Name="surname" FontSize="15" Height="30" Width="130">Hello</TextBox>
+                        <TextBox x:Name="name" FontSize="15" Height="30" Width="130">Hello</TextBox>
+                        <TextBox x:Name="thirdname" FontSize="15" Height="30" Width="130">Hello</TextBox>
+                        <TextBox x:Name="age" FontSize="15" Height="30" Width="130">Hello</TextBox>
+                        <TextBox x:Name="sex" FontSize="15" Height="30" Width="130">Hello</TextBox>
+                        <TextBox x:Name="email" FontSize="15" Height="30" Width="130">Hello</TextBox>
+                        <TextBox FontSize="15" Height="30" Width="130">Hello</TextBox>
+                        <TextBox FontSize="15" Height="30" Width="130">Hello</TextBox>
+                    </StackPanel>
+                </Grid>
+            </TabItem.Content>
+        </TabItem>
+        <TabItem x:Name="trainersTab">
+            <TabItem.Header>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock FontWeight="Bold" FontSize="18" Foreground="Purple">Выбор личного тренера</TextBlock>
+                </StackPanel>
+            </TabItem.Header>
+            <TabItem.Content>
+                <StackPanel Margin="25">
+                    <DataGrid x:Name="TrainersTable" HorizontalAlignment="Center" Width="800" Height="270" />
+                    <Button x:Name="TakeTrainer" Click="newTrainer" Width="200" HorizontalAlignment="Right" Margin="10">Выбрать тренера</Button>
+                </StackPanel>
+            </TabItem.Content>
+        </TabItem>
+        <TabItem x:Name="abonementsTab">
+            <TabItem.Header>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock FontWeight="Bold" FontSize="18" Foreground="Purple">Выбор абонементов</TextBlock>
+                </StackPanel>
+            </TabItem.Header>
+            <TabItem.Content>
+                <StackPanel Margin="25">
+                    <DataGrid x:Name="AbonementsTable" HorizontalAlignment="Center" Width="800" Height="270" />
+                    <Button x:Name="TakeAbonement" Click="newAbonement" Width="200" HorizontalAlignment="Right" Margin="10">Выбрать абонемент</Button>
+                </StackPanel>
+            </TabItem.Content>
+        </TabItem>
+    </TabControl>
 </Window>

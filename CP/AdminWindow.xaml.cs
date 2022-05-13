@@ -35,8 +35,8 @@ namespace CP
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            UserManagmentWindow usWindow = new UserManagmentWindow();
-            usWindow.Show();
+            AbonementManagmentWindow abWindow = new AbonementManagmentWindow();
+            abWindow.Show();
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)

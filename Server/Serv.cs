@@ -72,6 +72,8 @@ namespace Server
                                         (builder.ToString() == "ADD ABONEMENT") ||
                                         (builder.ToString() == "DELETE ABONEMENT") ||
                                         (builder.ToString() == "UPDATE ABONEMENT") ||
+                                        (builder.ToString() == "READ ABONEMENTS") ||
+                                        (builder.ToString() == "READ TRAINERS") ||
                                         (builder.ToString() == "READ CLIENTS")))
                     {
                         command = builder.ToString();
@@ -86,6 +88,22 @@ namespace Server
                                 case "READ CLIENTS":
                                     {
                                         DataTable dataTable = SqlCommander.GetClients("All");
+                                        byte[] responseData = GetBinaryFormatData(dataTable);
+                                        handler.Send(responseData);
+                                        Clear(trainer, Abonement, client, logIn, expert);
+                                    }
+                                    break;
+                                case "READ ABONEMENTS":
+                                    {
+                                        DataTable dataTable = SqlCommander.GetAbonements("All");
+                                        byte[] responseData = GetBinaryFormatData(dataTable);
+                                        handler.Send(responseData);
+                                        Clear(trainer, Abonement, client, logIn, expert);
+                                    }
+                                    break;
+                                case "READ TRAINERS":
+                                    {
+                                        DataTable dataTable = SqlCommander.GetTrainers("All");
                                         byte[] responseData = GetBinaryFormatData(dataTable);
                                         handler.Send(responseData);
                                         Clear(trainer, Abonement, client, logIn, expert);
@@ -392,15 +410,6 @@ namespace Server
                                                 }
                                             }
                                         }
-                                    }
-                                    break;
-                                case "SELECT ABONEMENT":
-                                    {
-                                        Abonement.ID = builder.ToString();
-                                        DataTable dataTable = SqlCommander.SelectAbonement(Abonement);
-                                        byte[] responseData = GetBinaryFormatData(dataTable);
-                                        handler.Send(responseData);
-                                        Clear(trainer, Abonement, client, logIn, expert);
                                     }
                                     break;
                                 case "ADD ABONEMENT":
