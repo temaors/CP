@@ -24,7 +24,7 @@
         <TextBlock Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Left"  FontWeight="Bold" FontSize="24" Margin="373,0,0,0">Авторизация</TextBlock>
         <TextBox x:Name="TextBoxLogin" KeyDown="KD" Grid.ColumnSpan="2" Grid.Row="1" Width="300" Height="40" materialDesign:HintAssist.Hint="Введите логин" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="300,10,294,0" VerticalAlignment="Top"></TextBox>
         <PasswordBox x:Name="TextBoxPassword" KeyUp="KU" Grid.ColumnSpan="2" Grid.Row="1" Width="300" Height="40" materialDesign:HintAssist.Hint="Введите пароль" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" Margin="300,81,294,41"></PasswordBox>
-        <Label x:Name="LogLabel" Content="" Height="53" Margin="300,161,294,0" Grid.Row="1" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" Grid.ColumnSpan="2" Grid.RowSpan="2" RenderTransformOrigin="0.501,0.528"/>
+        <Label x:Name="LogLabel" Content="" Height="53" Margin="300,161,294,0" Grid.Row="1" VerticalAlignment="Top" Foreground="Red" FontWeight="Bold" Grid.ColumnSpan="2" Grid.RowSpan="2" RenderTransformOrigin="0.501,0.528"/>
 
         <!--<TextBox Grid.ColumnSpan="2" Grid.Row="1" Width="300" Height="40" Margin="250,10,249,98"></TextBox>-->
         <!--<PasswordBox PasswordChar="*" Grid.ColumnSpan="2" Grid.Row="1" Width="300" Height="40" Margin="250,70,250,10"></PasswordBox>-->

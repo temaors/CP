@@ -85,6 +85,22 @@ namespace Server
                         {
                             switch (command)
                             {
+                                case "LOG IN":
+                                    {
+                                        if (client.Login == "")
+                                        {
+                                            client.Login = builder.ToString();
+                                        }
+                                        else
+                                        {
+                                            client.Password = builder.ToString();
+                                            string response = SqlCommander.LogIn(client);
+                                            data = Encoding.Unicode.GetBytes(response);
+                                            handler.Send(data);
+                                            Clear(trainer, Abonement, client, logIn, expert);
+                                        }
+                                    }
+                                    break;
                                 case "READ CLIENTS":
                                     {
                                         DataTable dataTable = SqlCommander.GetClients("All");
@@ -204,22 +220,6 @@ namespace Server
                                     //        }
                                     //    }
                                     //}
-                                    break;
-                                case "LOG IN":
-                                    {
-                                        if (client.Login == "")
-                                        {
-                                            client.Login = builder.ToString();
-                                        }
-                                        else
-                                        {
-                                            client.Password = builder.ToString();
-                                            string response = SqlCommander.LogIn(client);
-                                            data = Encoding.Unicode.GetBytes(response);
-                                            handler.Send(data);
-                                            Clear(trainer, Abonement, client, logIn, expert);
-                                        }
-                                    }
                                     break;
                                 case "REGISTRATION":
                                     {

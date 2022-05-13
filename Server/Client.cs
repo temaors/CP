@@ -43,6 +43,7 @@ namespace Server
                 this.Age = "";
                 this.ID = "";
                 this.Access = "";
+                this.Login = "";
                 this.Password = "";
             }
         }

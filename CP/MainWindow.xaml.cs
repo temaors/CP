@@ -34,6 +34,7 @@ namespace CP
                 System.Threading.Thread.Sleep(timeout);
                 ClientObject.SendRequestToServer(TextBoxLogin.Text);
                 System.Threading.Thread.Sleep(timeout);
+                LogLabel.Content = "Введите данные для входа";
                 string answer = ClientObject.SendRequestToServer(TextBoxPassword.Password);
                 if (answer == "ADMIN")
                 {
@@ -49,7 +50,8 @@ namespace CP
                     ClientWindow clientWindow = new ClientWindow(workLogin);
                     clientWindow.Show();
                 }
-                else LogLabel.Content = "Введён неверный логин или пароль";
+                else 
+                    LogLabel.Content = "Введён неверный логин или пароль";
             }
         }
 
