@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,19 +23,49 @@ namespace CP
         public TrainerManagmentWindow()
         {
             InitializeComponent();
+            ReadInfo("All");
+        }
+        static int timeout = 100;
+
+        private void ReadInfo(string info)
+        {
+            ClientObject.SendRequestToServer("READ TRAINERS");
+            System.Threading.Thread.Sleep(timeout);
+            DataTable dataTable = ClientObject.SendSelectRequestToServer(info);
+            System.Threading.Thread.Sleep(timeout);
+            if (info == "All")
+                TrainersTable.ItemsSource = dataTable.DefaultView;
+            else
+                TrainersTable.ItemsSource = dataTable.DefaultView;
         }
 
-        private void DelID_TextChanged(object sender, TextChangedEventArgs e)
+        private void Refresh(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void RefreshDel_Click(object sender, RoutedEventArgs e)
+        private void Find(object sender, RoutedEventArgs e)
+        {
+            if (ID.Text != "")
+            {
+                ClientObject.SendRequestToServer("SELECT TRAINER");
+                System.Threading.Thread.Sleep(timeout);
+                DataTable dataTable = ClientObject.SendSelectRequestToServer(ID.Text);
+                System.Threading.Thread.Sleep(timeout);
+                TrainersTable.ItemsSource = dataTable.DefaultView;
+            }
+            else
+            {
+                Info.Content = "Поле ID не должно быть пустым";
+            }
+        }
+
+        private void Edit(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Delete(object sender, RoutedEventArgs e)
         {
 
         }

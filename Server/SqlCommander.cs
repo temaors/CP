@@ -31,6 +31,36 @@ namespace Server
             //Console.WriteLine("База Данных: Вывод Клиентов ");
             return dataTable;
         }
+        static public DataTable SelectTrainer(Trainer trainer)
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            Console.WriteLine("Поиск в таблице Тренеры: " + trainer.ID);
+            sqlCommand.CommandText = "SELECT * FROM [Trainers] WHERE (ID='" + trainer.ID + "')";
+            sqlCommand.Connection = sqlConnection;
+
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
+
+            DataTable dataTable = new DataTable("Trainers");
+            sqlDataAdapter.Fill(dataTable);
+
+            //Console.WriteLine("База Данных: Вывод Клиентов ");
+            return dataTable;
+        }
+        static public DataTable SelectAbonement(Abonement abonement)
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            Console.WriteLine("Поиск в таблице Абонементы: " + abonement.ID);
+            sqlCommand.CommandText = "SELECT * FROM [Abonements] WHERE (ID='" + abonement.ID + "')";
+            sqlCommand.Connection = sqlConnection;
+
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
+
+            DataTable dataTable = new DataTable("Abonements");
+            sqlDataAdapter.Fill(dataTable);
+
+            //Console.WriteLine("База Данных: Вывод Клиентов ");
+            return dataTable;
+        }
         static public DataTable GetClientInfo(Client client)
         {
             SqlCommand sqlCommand = new SqlCommand();

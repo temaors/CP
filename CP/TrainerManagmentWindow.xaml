@@ -5,14 +5,36 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CP"
         mc:Ignorable="d"
-        Title="TrainerManagmentWindow" Height="450" Width="900">
-    <Grid>
-        <DataGrid x:Name="TrainersTable" HorizontalAlignment="Left" Height="276" Margin="35,52,0,0" VerticalAlignment="Top" Width="839" Grid.ColumnSpan="3" />
-        <TextBlock HorizontalAlignment="Left" Margin="18,354,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="24" Width="217"><Run Text="Введите "/><Run Text="ID "/><Run Text="тренера для удаления"/><Run Text=" "/></TextBlock>
-        <TextBox x:Name="DelID" HorizontalAlignment="Left" Height="22" Margin="235,354,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="104" TextChanged="DelID_TextChanged"/>
-        <Button Content="Удалить тренера" HorizontalAlignment="Left" Margin="424,345,0,0" VerticalAlignment="Top" Width="270" Height="28" Click="Button_Click"/>
-        <Button x:Name="RefreshDel" Content="Обновить" HorizontalAlignment="Left" Margin="718,10,0,0" VerticalAlignment="Top" Width="120" Click="RefreshDel_Click"/>
-        <Label x:Name="DelClLabel" Content="" HorizontalAlignment="Left" Height="31" Margin="18,393,0,0" VerticalAlignment="Top" Width="453"/>
-
-    </Grid>
+        Title="TrainerManagmentWindow" Height="480" Width="900" Background="#FFE5E5E5" WindowStartupLocation="CenterScreen">
+    <StackPanel Margin="13">
+        <Button HorizontalAlignment="Right" Margin="0,10" Content="Обновить" Width="120" Click="Refresh"/>
+        <DataGrid x:Name="TrainersTable" AutoGenerateColumns="False" HorizontalAlignment="Center" Margin="0,5" Height="226"  Width="839">
+        <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding ID}" Header="ID" />
+                <DataGridTextColumn Binding="{Binding Surname}" Header="Фамилия" />
+                <DataGridTextColumn Binding="{Binding Name}" Header="Имя" />
+                <DataGridTextColumn Binding="{Binding ThirdName}" Header="Отчество" />
+                <DataGridTextColumn Binding="{Binding Type}" Header="Направление тренировок" />
+                <DataGridTextColumn Binding="{Binding Cost}" Header="Цена за тренировку" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <Grid Margin="0,10">
+            <Grid.ColumnDefinitions >
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock FontSize="18" Foreground="Purple" Grid.Column="0" Width="220">Введите ID тренера</TextBlock>
+            <TextBox x:Name="ID" Grid.Column="1" Width="120" Height="30" HorizontalAlignment="Center"></TextBox>
+            <Label x:Name="Info" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Margin="40,10" HorizontalAlignment="Left" Width="350"></Label>
+            <Button Width="200" Grid.Column="2" Click="Find" Grid.Row="0">Поиск</Button>
+            <Button Width="200" Grid.Column="2" Click="Edit" Grid.Row="1" Margin="0,10">Редактировать</Button>
+            <Button Width="200" Grid.Column="2" Click="Delete" Grid.Row="2">Удалить</Button>
+        </Grid>
+    </StackPanel>
 </Window>

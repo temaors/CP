@@ -494,6 +494,22 @@ namespace Server
                                         }
                                     }
                                     break;
+                                case "SELECT TRAINER":
+                                    {
+                                        DataTable dataTable = SqlCommander.SelectTrainer(trainer);
+                                        byte[] responseData = GetBinaryFormatData(dataTable);
+                                        handler.Send(responseData);
+                                        Clear(trainer, Abonement, client, logIn, expert);
+                                    }
+                                    break;
+                                case "SELECT ABONEMENT":
+                                    {
+                                        DataTable dataTable = SqlCommander.SelectAbonement(Abonement);
+                                        byte[] responseData = GetBinaryFormatData(dataTable);
+                                        handler.Send(responseData);
+                                        Clear(trainer, Abonement, client, logIn, expert);
+                                    }
+                                    break;
                             }
                         }
                         else

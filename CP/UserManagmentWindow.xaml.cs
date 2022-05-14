@@ -37,8 +37,7 @@ namespace CP
             System.Threading.Thread.Sleep(timeout);
             if (info == "All")
                 ClientsTable_Del.ItemsSource = dataTable.DefaultView;
-            else
-                ClientsTable_Red.ItemsSource = dataTable.DefaultView;
+       
         }
 
         private void RefreshRed_Click(object sender, RoutedEventArgs e)
@@ -70,28 +69,6 @@ namespace CP
                     DelClLabel.Content = ClientObject.SendRequestToServer(DelID.Text);
                 }
             }
-        }
-
-        private void RedClient_Click(object sender, RoutedEventArgs e)
-        {
-            if (RedID.Text == "")
-            {
-                RedClLabel.Content = "Поле Id пустое";
-            }
-            else
-            {
-                if (!Int32.TryParse(RedID.Text, out int res))
-                {
-                    RedClLabel.Content = "Id должно быть числом";
-                }
-                else
-                {
-                    ClientObject.SendRequestToServer("RED CLIENT ACCESS");
-                    System.Threading.Thread.Sleep(timeout);
-                    RedClLabel.Content = ClientObject.SendRequestToServer(RedID.Text);
-                }
-            }
-
         }
     }
 }

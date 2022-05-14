@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,19 +20,31 @@ namespace CP
     /// </summary>
     public partial class AbonementManagmentWindow : Window
     {
+
+        static int timeout = 100;
         public AbonementManagmentWindow()
         {
             InitializeComponent();
+            ReadInfo("All");
         }
 
-        private void RefreshDel_Click(object sender, RoutedEventArgs e)
+        private void ReadInfo(string info)
         {
-
+            ClientObject.SendRequestToServer("READ ABONEMENTS");
+            System.Threading.Thread.Sleep(timeout);
+            DataTable dataTable = ClientObject.SendSelectRequestToServer(info);
+            System.Threading.Thread.Sleep(timeout);
+            if (info == "All")
+                AbonementsTable.ItemsSource = dataTable.DefaultView;
+            else
+                AbonementsTable.ItemsSource = dataTable.DefaultView;
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void AbEdit(object sender, DataGridBeginningEditEventArgs e)
         {
-
+            if (e.Column.DisplayIndex != 1)
+            {
+                e.Cancel = true;
+            }
         }
     }
 }

@@ -6,11 +6,11 @@
         xmlns:local="clr-namespace:CP"
         mc:Ignorable="d"
         Title="AdminWindow" Height="333" Width="300.5" WindowStartupLocation="CenterScreen">
-    <Grid Margin="0,0,2,1">
-        <Button Content="Управление тренерамих" HorizontalAlignment="Left" Margin="60,20,0,0" VerticalAlignment="Top" Width="170" Click="Button_Click" Height="29"/>
-        <Button Content="Управление абонементами" HorizontalAlignment="Left" Margin="60,64,0,0" VerticalAlignment="Top" Width="170" Height="30" Click="Button_Click_1"/>
-        <Button Content="Управление пользователями" HorizontalAlignment="Left" Margin="60,110,0,0" VerticalAlignment="Top" Width="170" Height="30" Click="Button_Click_2"/>
-        <Button Content="Составление отчета" HorizontalAlignment="Left" Margin="60,157,0,0" VerticalAlignment="Top" Width="170" Height="30" Click="Button_Click_3"/>
-        <Button Content="Оформление лизинга" HorizontalAlignment="Left" Margin="60,203,0,0" VerticalAlignment="Top" Width="170" Height="30" Click="Button_Click_4"/>
-    </Grid>
+    <StackPanel Margin="10">
+
+        <Button Content="Управление тренерами" HorizontalAlignment="Center" Margin="0,10" VerticalAlignment="Top" Width="230" Click="Button_Click" Height="29"/>
+        <Button Content="Управление абонементами" HorizontalAlignment="Center" Margin="0,10" VerticalAlignment="Top" Width="230" Height="30" Click="Button_Click_1"/>
+        <Button Content="Управление пользователями" HorizontalAlignment="Center" Margin="0,10" VerticalAlignment="Top" Width="230" Height="30" Click="Button_Click_2"/>
+        <Button Content="Составление отчета" HorizontalAlignment="Center" Margin="0,10" VerticalAlignment="Top" Width="230" Height="30" Click="Button_Click_3"/>
+    </StackPanel>
 </Window>

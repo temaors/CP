@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CP"
         mc:Ignorable="d"
-        Title="Клиент" Height="450" Width="900" WindowStartupLocation="CenterScreen">
+        Title="Клиент" Height="450" Width="900" Background="#FFE5E5E5" WindowStartupLocation="CenterScreen">
     <TabControl x:Name="products">
         <TabItem x:Name="personalTab">
             <TabItem.Header>
@@ -63,7 +63,15 @@
             </TabItem.Header>
             <TabItem.Content>
                 <StackPanel Margin="25">
-                    <DataGrid x:Name="AbonementsTable" HorizontalAlignment="Center" Width="800" Height="270" />
+                    <DataGrid x:Name="AbonementsTable" HorizontalAlignment="Center" Width="800" Height="270">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding ID}" Header="ID" />
+                        <DataGridTextColumn Binding="{Binding CountOfAttendings}" Header="Количество посещений" />
+                        <DataGridTextColumn Binding="{Binding Cost}" Header="Цена" />
+                        <DataGridTextColumn Binding="{Binding Type}" Header="Тип тренеровок" />
+                        <DataGridTextColumn Binding="{Binding Term}" Header="Срок действия" />
+                    </DataGrid.Columns>
+                    </DataGrid>
                     <Button x:Name="TakeAbonement" Click="newAbonement" Width="200" HorizontalAlignment="Right" Margin="10">Выбрать абонемент</Button>
                 </StackPanel>
             </TabItem.Content>

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:CP"
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Title="MainWindow" Height="550" Width="900">
+        Title="MainWindow" Height="550" Width="900" WindowStartupLocation="CenterScreen">
     <!--<Window.Background>
         <ImageBrush ImageSource="D:\MyCourseWork\images\BackgroundImage.jpg"/>
     </Window.Background>-->
@@ -18,7 +18,7 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="75*"></ColumnDefinition>
-            <ColumnDefinition Width="74*"></ColumnDefinition>
+            <ColumnDefinition Width="75*"></ColumnDefinition>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <TextBlock Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Left"  FontWeight="Bold" FontSize="24" Margin="373,0,0,0">Авторизация</TextBlock>
