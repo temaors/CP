@@ -35,6 +35,7 @@ namespace Server
                 Client client = new Client();
                 LogIn logIn = new LogIn();
                 Expert expert = new Expert();
+                
                 Clear(trainer, Abonement, client, logIn, expert);
 
 
@@ -69,6 +70,7 @@ namespace Server
                                         (builder.ToString() == "DELETE CLIENT") ||
                                         (builder.ToString() == "UPDATE CLIENT") ||
                                         (builder.ToString() == "SELECT ABONEMENT") ||
+                                        (builder.ToString() == "SELECT TRAINER") ||
                                         (builder.ToString() == "ADD ABONEMENT") ||
                                         (builder.ToString() == "DELETE ABONEMENT") ||
                                         (builder.ToString() == "UPDATE ABONEMENT") ||
@@ -78,6 +80,7 @@ namespace Server
                     {
                         command = builder.ToString();
                         ++status;
+                        
                     }
                     else
                     {
@@ -103,10 +106,18 @@ namespace Server
                                     break;
                                 case "READ CLIENTS":
                                     {
-                                        DataTable dataTable = SqlCommander.GetClients("All");
-                                        byte[] responseData = GetBinaryFormatData(dataTable);
-                                        handler.Send(responseData);
-                                        Clear(trainer, Abonement, client, logIn, expert);
+                                        if (client.Search == "")
+                                        {
+                                            client.Search = builder.ToString();
+                                        }
+                                        else
+                                        {
+                                            string find = builder.ToString();
+                                            DataTable dataTable = SqlCommander.GetClients(find, client);
+                                            byte[] responseData = GetBinaryFormatData(dataTable);
+                                            handler.Send(responseData);
+                                            Clear(trainer, Abonement, client, logIn, expert);
+                                        }
                                     }
                                     break;
                                 case "READ ABONEMENTS":
@@ -331,17 +342,43 @@ namespace Server
                                                         }
                                                         else
                                                         {
-                                                            
-                                                                        client.Age = builder.ToString();
-                                               
-                                                                       
-                                                                        string response = SqlCommander.AddClient(client);
-                                                                        data = Encoding.Unicode.GetBytes(response);
-                                                                        handler.Send(data);
-                                                                        Clear(trainer, Abonement, client, logIn, expert);
-                                                                   
-                                                                
-                                                            
+                                                            if(client.ID == "")
+                                                            {
+                                                                client.ID = builder.ToString();
+
+                                                            }
+                                                            else
+                                                            {
+                                                                if(client.Login == "")
+                                                                {
+                                                                    client.Login = builder.ToString();
+                                                                }
+                                                                else
+                                                                {
+                                                                    if (client.Password == "")
+                                                                    {
+                                                                        client.Password = builder.ToString();
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        if (client.Age == "")
+                                                                        {
+                                                                            client.Age = builder.ToString();
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            if (client.Access == "")
+                                                                            {
+                                                                                client.Access = builder.ToString();
+                                                                                string response = SqlCommander.AddClient(client);
+                                                                                data = Encoding.Unicode.GetBytes(response);
+                                                                                handler.Send(data);
+                                                                                Clear(trainer, Abonement, client, logIn, expert);
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }                                                         
                                                         }
                                                     }
                                                 }
@@ -496,6 +533,7 @@ namespace Server
                                     break;
                                 case "SELECT TRAINER":
                                     {
+                                        trainer.ID = builder.ToString();
                                         DataTable dataTable = SqlCommander.SelectTrainer(trainer);
                                         byte[] responseData = GetBinaryFormatData(dataTable);
                                         handler.Send(responseData);

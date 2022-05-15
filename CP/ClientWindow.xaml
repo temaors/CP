@@ -30,14 +30,14 @@
                     <TextBlock FontSize="15" Height="30" Width="130">Абонемент:</TextBlock>
                 </StackPanel>
                     <StackPanel Grid.Column="1" HorizontalAlignment="Left" Margin="30">
-                        <TextBox x:Name="surname" FontSize="15" Height="30" Width="130">Hello</TextBox>
-                        <TextBox x:Name="name" FontSize="15" Height="30" Width="130">Hello</TextBox>
-                        <TextBox x:Name="thirdname" FontSize="15" Height="30" Width="130">Hello</TextBox>
-                        <TextBox x:Name="age" FontSize="15" Height="30" Width="130">Hello</TextBox>
-                        <TextBox x:Name="sex" FontSize="15" Height="30" Width="130">Hello</TextBox>
-                        <TextBox x:Name="email" FontSize="15" Height="30" Width="130">Hello</TextBox>
-                        <TextBox FontSize="15" Height="30" Width="130">Hello</TextBox>
-                        <TextBox FontSize="15" Height="30" Width="130">Hello</TextBox>
+                        <Label x:Name="surname" FontSize="15" Height="30" Width="150"></Label>
+                        <Label x:Name="name" FontSize="15" Height="30" Width="150"></Label>
+                        <Label x:Name="thirdname" FontSize="15" Height="30" Width="150"></Label>
+                        <Label x:Name="age" FontSize="15" Height="30" Width="150"></Label>
+                        <Label x:Name="sex" FontSize="15" Height="30" Width="150"></Label>
+                        <Label x:Name="email" FontSize="15" Height="30" Width="150"></Label>
+                        <Label x:Name="trainer" FontSize="15" Height="30" Width="150"></Label>
+                        <Label x:Name="abonement" FontSize="15" Height="30" Width="150"></Label>
                     </StackPanel>
                 </Grid>
             </TabItem.Content>

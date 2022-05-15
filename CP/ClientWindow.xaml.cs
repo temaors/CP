@@ -32,8 +32,20 @@ namespace CP
 
         public void readInfo()
         {
-            //DataTable clientTab = ClientObject.SendSelectRequestToServer("SELECT CLIENT");
-            //System.Threading.Thread.Sleep(timeout);
+            ClientObject.SendRequestToServer("READ CLIENTS");
+            System.Threading.Thread.Sleep(timeout);
+            ClientObject.SendRequestToServer(workLogin);
+            System.Threading.Thread.Sleep(timeout);
+            DataTable dataTable = ClientObject.SendSelectRequestToServer("Логину");
+            System.Threading.Thread.Sleep(timeout);
+            surname.Content = dataTable.Rows[0][3].ToString();
+            name.Content = dataTable.Rows[0][4].ToString();
+            thirdname.Content = dataTable.Rows[0][5].ToString();
+            email.Content = dataTable.Rows[0][6].ToString();
+            age.Content = dataTable.Rows[0][8].ToString();
+            sex.Content = dataTable.Rows[0][7].ToString();
+            abonement.Content = dataTable.Rows[0][9].ToString();
+            trainer.Content = dataTable.Rows[0][10].ToString();
             ClientObject.SendRequestToServer("READ ABONEMENTS");
             System.Threading.Thread.Sleep(timeout);
             DataTable dataTable2 = ClientObject.SendSelectRequestToServer("All");

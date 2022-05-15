@@ -20,7 +20,7 @@
                 <DataGridTextColumn Binding="{Binding password}" Header="Пароль" />
                 <DataGridTextColumn Binding="{Binding surname}" Header="Фамилия" />
                 <DataGridTextColumn Binding="{Binding name}" Header="Имя" />
-                <DataGridTextColumn Binding="{Binding thirdName}" Header="Отчество" />
+                <DataGridTextColumn Binding="{Binding thirdname}" Header="Отчество" />
                 <DataGridTextColumn Binding="{Binding email}" Header="Email" />
                 <DataGridTextColumn Binding="{Binding gender}" Header="Пол" />
                 <DataGridTextColumn Binding="{Binding age}" Header="Возраст" />

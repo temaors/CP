@@ -214,7 +214,7 @@ namespace Server
         static public string DelClient(Client client)
         {
             SqlCommand sqlCommand = new SqlCommand();
-            sqlCommand.CommandText = "DELETE FROM [CLIENTS] WHERE Id = @Id";
+            sqlCommand.CommandText = "DELETE FROM [Clients] WHERE Id = @Id";
 
             sqlCommand.Connection = sqlConnection;
             sqlCommand.Parameters.AddWithValue("@Id", client.ID);
@@ -252,18 +252,61 @@ namespace Server
         //    Console.WriteLine("Получение отметок экспертов");
         //    return dataTable;
         //}
-        static public DataTable GetClients(string sqlInfo)
+        static public DataTable GetClients(string sqlInfo, Client client)
         {
             SqlCommand sqlCommand = new SqlCommand();
             try
             {
                 Console.WriteLine("Запрос данных о пользователях.");
-                if (sqlInfo == "All")
+                switch (sqlInfo)
                 {
-                    sqlCommand.CommandText = "SELECT * FROM [Clients]";
-                }
-                else
-                    sqlCommand.CommandText = "SELECT * FROM [Clients] Where access = '1'";
+                    case "All":
+                        sqlCommand.CommandText = "SELECT * FROM [Clients]";
+                        break;
+
+                    case "ID":
+                        sqlCommand.CommandText = "SELECT * FROM [Clients] Where id = '" + client.Search + "'";
+                        break;
+
+                    case "Фамилии":
+                        sqlCommand.CommandText = "SELECT * FROM [Clients] Where surname = '" + client.Search + "'";
+                        break;
+
+                    case "Имени":
+                        sqlCommand.CommandText = "SELECT * FROM [Clients] Where name = '" + client.Search + "'";
+                        break;
+
+                    case "Паролю":
+                        sqlCommand.CommandText = "SELECT * FROM [Clients] Where password = '" + client.Search + "'";
+                        break;
+
+                    case "Логину":
+                        sqlCommand.CommandText = "SELECT * FROM [Clients] Where login = '" + client.Search + "'";
+                        break;
+
+                    case "Отчеству":
+                        sqlCommand.CommandText = "SELECT * FROM [Clients] Where thirdname = '" + client.Search + "'";
+                        break;
+
+                    case "Возрасту":
+                        sqlCommand.CommandText = "SELECT * FROM [Clients] Where age = '" + client.Search + "'";
+                        break;
+
+                    case "Полу":
+                        sqlCommand.CommandText = "SELECT * FROM [Clients] Where gender = '" + client.Search + "'";
+                        break;
+
+                    case "Email":
+                        sqlCommand.CommandText = "SELECT * FROM [Clients] Where email = '" + client.Search + "'";
+                        break;
+
+                    case "Доступу":
+                        sqlCommand.CommandText = "SELECT * FROM [Clients] Where access = '" + client.Search + "'";
+                        break;
+                    default:
+                        break;
+                }   
+                Console.WriteLine("SELECT * FROM [Clients] Where " + sqlInfo + " = '" + client.Search + "'");
 
                 sqlCommand.Connection = sqlConnection;
             }
@@ -357,17 +400,21 @@ namespace Server
         static public string AddClient(Client client)
         {
             SqlCommand sqlCommand = new SqlCommand();
-            sqlCommand.CommandText = "INSERT into [Clients]( gender, name, surname, thirdname, email, age) " +
-                "VALUES(@clGender, @clName, @clSurname, @clThirdname, @clEmail, @clAge)";
+            sqlCommand.CommandText = "INSERT into [Clients](id, login, password, surname, name, thirdname, email, gender, age, access) " +
+                "VALUES(@clID, @clLogin, @clPassword, @clSurname, @clName, @clThirdname, @clEmail, @clGender, @clAge, @clAccess)";
 
             sqlCommand.Connection = sqlConnection;
-
-            sqlCommand.Parameters.AddWithValue("@clName", client.Name);
+            sqlCommand.Parameters.AddWithValue("@clID", int.Parse(client.ID));
+            sqlCommand.Parameters.AddWithValue("@clLogin", client.Login);
+            sqlCommand.Parameters.AddWithValue("@clPassword", client.Password);
             sqlCommand.Parameters.AddWithValue("@clSurname", client.Surname);
+            sqlCommand.Parameters.AddWithValue("@clName", client.Name);
             sqlCommand.Parameters.AddWithValue("@clThirdname", client.Thirdname);
-            sqlCommand.Parameters.AddWithValue("@clGender", client.Gender);
             sqlCommand.Parameters.AddWithValue("@clEmail", client.Email);
+            sqlCommand.Parameters.AddWithValue("@clGender", client.Gender);
             sqlCommand.Parameters.AddWithValue("@clAge", int.Parse(client.Age));
+            sqlCommand.Parameters.AddWithValue("@clAccess", int.Parse(client.Access));
+            
 
             try
             {
@@ -375,7 +422,8 @@ namespace Server
                 string response = "База Данных: Добавление Клиента ";
                 Console.WriteLine(response + " (Возраст: " + client.Age + ") (Имя клиента: " + client.Name + ") (Фамилия:  " + client.Surname + ") (Отчество: " + client.Thirdname + ") " +
                     "(Пол: " + client.Gender + ") (Email: " + client.Email + ")");
-                return response;
+                string resp = "База данных: Успешно!";
+                return resp;
 
             }
             catch (Microsoft.Data.SqlClient.SqlException ex)

@@ -53,7 +53,8 @@ namespace CP
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
-
+            CRUDWindow crWindw = new CRUDWindow();
+            crWindw.Show();
         }
     }
 }
