@@ -20,15 +20,15 @@
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0" HorizontalAlignment="Left" Margin="30">
-                    <TextBlock FontSize="15" Height="30" Width="130">Фамилия:</TextBlock>
-                    <TextBlock FontSize="15" Height="30" Width="130">Имя:</TextBlock>
-                    <TextBlock FontSize="15" Height="30" Width="130">Отчество:</TextBlock>
-                    <TextBlock FontSize="15" Height="30" Width="130">Возраст:</TextBlock>
-                    <TextBlock FontSize="15" Height="30" Width="130">Пол:</TextBlock>
-                    <TextBlock FontSize="15" Height="30" Width="130">Email:</TextBlock>
-                    <TextBlock FontSize="15" Height="30" Width="130">Личный тренер:</TextBlock>
-                    <TextBlock FontSize="15" Height="30" Width="130">Абонемент:</TextBlock>
-                </StackPanel>
+                        <TextBlock FontSize="15" Height="30" Width="130">Фамилия:</TextBlock>
+                        <TextBlock FontSize="15" Height="30" Width="130">Имя:</TextBlock>
+                        <TextBlock FontSize="15" Height="30" Width="130">Отчество:</TextBlock>
+                        <TextBlock FontSize="15" Height="30" Width="130">Возраст:</TextBlock>
+                        <TextBlock FontSize="15" Height="30" Width="130">Пол:</TextBlock>
+                        <TextBlock FontSize="15" Height="30" Width="130">Email:</TextBlock>
+                        <TextBlock FontSize="15" Height="30" Width="130">Личный тренер:</TextBlock>
+                        <TextBlock FontSize="15" Height="30" Width="130">Абонемент:</TextBlock>
+                    </StackPanel>
                     <StackPanel Grid.Column="1" HorizontalAlignment="Left" Margin="30">
                         <Label x:Name="surname" FontSize="15" Height="30" Width="150"></Label>
                         <Label x:Name="name" FontSize="15" Height="30" Width="150"></Label>
@@ -46,12 +46,32 @@
             <TabItem.Header>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock FontWeight="Bold" FontSize="18" Foreground="Purple">Выбор личного тренера</TextBlock>
+
                 </StackPanel>
             </TabItem.Header>
             <TabItem.Content>
                 <StackPanel Margin="25">
-                    <DataGrid x:Name="TrainersTable" HorizontalAlignment="Center" Width="800" Height="270" />
-                    <Button x:Name="TakeTrainer" Click="newTrainer" Width="200" HorizontalAlignment="Right" Margin="10">Выбрать тренера</Button>
+                    <DataGrid x:Name="TrainersTable" AutoGenerateColumns="False" HorizontalAlignment="Center" Height="270" VerticalAlignment="Top" Width="800">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding ID}" Header="ID" />
+                            <DataGridTextColumn Binding="{Binding surname}" Header="Фамилия" />
+                            <DataGridTextColumn Binding="{Binding name}" Header="Имя" />
+                            <DataGridTextColumn Binding="{Binding thirdname}" Header="Отчество" />
+                            <DataGridTextColumn Binding="{Binding type}" Header="Спецификация" />
+                            <DataGridTextColumn Binding="{Binding cost}" Header="Стоимость тренировки" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="212*"></ColumnDefinition>
+                            <ColumnDefinition Width="205*"></ColumnDefinition>
+                            <ColumnDefinition Width="433*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="newTrID" Width="150" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" Height="32">ID Тренера</TextBox>
+                        <Button x:Name="TakeTrainer" Click="newTrainer" Width="200" HorizontalAlignment="Left" Margin="197,10,0,10" Grid.ColumnSpan="2">Выбрать тренера</Button>
+                        <Label Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" Height="8" Width="8"></Label>
+                    </Grid>
+
                 </StackPanel>
             </TabItem.Content>
         </TabItem>
@@ -64,15 +84,24 @@
             <TabItem.Content>
                 <StackPanel Margin="25">
                     <DataGrid x:Name="AbonementsTable" HorizontalAlignment="Center" Width="800" Height="270">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding ID}" Header="ID" />
-                        <DataGridTextColumn Binding="{Binding CountOfAttendings}" Header="Количество посещений" />
-                        <DataGridTextColumn Binding="{Binding Cost}" Header="Цена" />
-                        <DataGridTextColumn Binding="{Binding Type}" Header="Тип тренеровок" />
-                        <DataGridTextColumn Binding="{Binding Term}" Header="Срок действия" />
-                    </DataGrid.Columns>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding ID}" Header="ID" />
+                            <DataGridTextColumn Binding="{Binding countofattendings}" Header="Количество посещений" />
+                            <DataGridTextColumn Binding="{Binding cost}" Header="Цена" />
+                            <DataGridTextColumn Binding="{Binding type}" Header="Тип тренеровок" />
+                            <DataGridTextColumn Binding="{Binding term}" Header="Срок действия" />
+                        </DataGrid.Columns>
                     </DataGrid>
-                    <Button x:Name="TakeAbonement" Click="newAbonement" Width="200" HorizontalAlignment="Right" Margin="10">Выбрать абонемент</Button>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="212*"></ColumnDefinition>
+                            <ColumnDefinition Width="205*"></ColumnDefinition>
+                            <ColumnDefinition Width="433*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="newAbID" Width="150" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" Height="32">ID абонемента</TextBox>
+                        <Button x:Name="TakeAbonement" Click="newAbonement" Width="200" HorizontalAlignment="Left" Margin="197,10,0,10" Grid.ColumnSpan="2">Выбрать абонемент</Button>
+                        <Label x:Name="labelAbonement" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" Height="8" Width="8"></Label>
+                    </Grid>
                 </StackPanel>
             </TabItem.Content>
         </TabItem>

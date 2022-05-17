@@ -106,5 +106,10 @@ namespace CP
             System.Threading.Thread.Sleep(timeout);
             ReadInfo();
         }
+
+        private void AddTrainer(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

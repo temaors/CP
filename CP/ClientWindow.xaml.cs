@@ -22,15 +22,15 @@ namespace CP
     {
         public string workLogin = "";
         static int timeout = 100;
-
+        string abID = "", trID = "";
         public ClientWindow(string login)
         {
             InitializeComponent();
             workLogin = login;
-            readInfo();
+            readCLInfo();
         }
 
-        public void readInfo()
+        public void readCLInfo()
         {
             ClientObject.SendRequestToServer("READ CLIENTS");
             System.Threading.Thread.Sleep(timeout);
@@ -44,8 +44,10 @@ namespace CP
             email.Content = dataTable.Rows[0][6].ToString();
             age.Content = dataTable.Rows[0][8].ToString();
             sex.Content = dataTable.Rows[0][7].ToString();
-            abonement.Content = dataTable.Rows[0][9].ToString();
-            trainer.Content = dataTable.Rows[0][10].ToString();
+            abonement.Content = dataTable.Rows[0][10].ToString();
+            abID = dataTable.Rows[0][10].ToString();
+            trainer.Content = dataTable.Rows[0][11].ToString();
+            trID = dataTable.Rows[0][11].ToString();
             ClientObject.SendRequestToServer("READ ABONEMENTS");
             System.Threading.Thread.Sleep(timeout);
             DataTable dataTable2 = ClientObject.SendSelectRequestToServer("All");
@@ -53,7 +55,7 @@ namespace CP
             AbonementsTable.ItemsSource = dataTable2.DefaultView;
             ClientObject.SendRequestToServer("READ TRAINERS");
             System.Threading.Thread.Sleep(timeout);
-            DataTable dataTable1 = ClientObject.SendSelectRequestToServer(workLogin);
+            DataTable dataTable1 = ClientObject.SendSelectRequestToServer("All");
             System.Threading.Thread.Sleep(timeout);
 
             TrainersTable.ItemsSource = dataTable1.DefaultView;
@@ -61,12 +63,48 @@ namespace CP
 
         private void newAbonement(object sender, RoutedEventArgs e)
         {
-
+            if (abID != "")
+            {
+                ClientObject.SendRequestToServer("SET ABONEMENT");
+                System.Threading.Thread.Sleep(timeout);
+                ClientObject.SendRequestToServer(workLogin);
+                System.Threading.Thread.Sleep(timeout);
+                ClientObject.SendRequestToServer(newAbID.Text);
+                System.Threading.Thread.Sleep(timeout);
+            }
+            else
+            {
+                ClientObject.SendRequestToServer("SET ABONEMENT");
+                System.Threading.Thread.Sleep(timeout);
+                ClientObject.SendRequestToServer(workLogin);
+                System.Threading.Thread.Sleep(timeout);
+                ClientObject.SendRequestToServer(newAbID.Text);
+                System.Threading.Thread.Sleep(timeout);
+            }
         }
 
         private void newTrainer(object sender, RoutedEventArgs e)
         {
-
+            if (trID != "")
+            {
+                ClientObject.SendRequestToServer("SET TRAINER");
+                System.Threading.Thread.Sleep(timeout);
+                ClientObject.SendRequestToServer(workLogin);
+                System.Threading.Thread.Sleep(timeout);
+                ClientObject.SendRequestToServer(newTrID.Text);
+                System.Threading.Thread.Sleep(timeout);
+                readCLInfo();
+            }
+            else
+            {
+                ClientObject.SendRequestToServer("SET TRAINER");
+                System.Threading.Thread.Sleep(timeout);
+                ClientObject.SendRequestToServer(workLogin);
+                System.Threading.Thread.Sleep(timeout);
+                ClientObject.SendRequestToServer(newTrID.Text);
+                System.Threading.Thread.Sleep(timeout);
+                readCLInfo();
+            }
         }
     }
 }

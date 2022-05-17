@@ -35,14 +35,12 @@ namespace CP
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            TrainerManagmentWindow trWindow = new TrainerManagmentWindow();
-            trWindow.Show();
+            
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            AbonementManagmentWindow abWindow = new AbonementManagmentWindow();
-            abWindow.Show();
+            
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)

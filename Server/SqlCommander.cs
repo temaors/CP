@@ -324,9 +324,18 @@ namespace Server
             SqlCommand sqlCommand = new SqlCommand();
             try
             {
-                Console.WriteLine("Запрос данных об абонементах.");
-                sqlCommand.CommandText = "SELECT * FROM [Abonements]";
-                sqlCommand.Connection = sqlConnection;
+                if (inf == "All")
+                {
+                    Console.WriteLine("Запрос данных об абонементах.");
+                    sqlCommand.CommandText = "SELECT * FROM [Abonements]";
+                    sqlCommand.Connection = sqlConnection;
+                }
+                else
+                {
+                    Console.WriteLine("Запрос данных об абонементах.");
+                    sqlCommand.CommandText = "SELECT * FROM [Abonements] Where ID = '" + inf + "'";
+                    sqlCommand.Connection = sqlConnection;
+                }
             }
             catch (Microsoft.Data.SqlClient.SqlException ex)
             {
@@ -342,9 +351,18 @@ namespace Server
             SqlCommand sqlCommand = new SqlCommand();
             try
             {
-                Console.WriteLine("Запрос данных об тренерах.");
-                sqlCommand.CommandText = "SELECT * FROM [Trainers]";
-                sqlCommand.Connection = sqlConnection;
+                if (inf == "All")
+                {
+                    Console.WriteLine("Запрос данных о тренерах.");
+                    sqlCommand.CommandText = "SELECT * FROM [Trainers]";
+                    sqlCommand.Connection = sqlConnection;
+                }
+                else
+                {
+                    Console.WriteLine("Запрос данных о тренерах.");
+                    sqlCommand.CommandText = "SELECT * FROM [Trainers] Where ID = '" + inf + "'";
+                    sqlCommand.Connection = sqlConnection;
+                }
             }
             catch (Microsoft.Data.SqlClient.SqlException ex)
             {
@@ -355,7 +373,78 @@ namespace Server
             sqlDataAdapter.Fill(dataTable);
             return dataTable;
         }
-            static public string ChangeClient(Client client)
+
+        static public string SetAbonement(Client client, string inf)
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandText = "UPDATE [Clients] SET abonementid = @abid Where login = '" + client.Login + "'";
+
+            sqlCommand.Connection = sqlConnection;
+
+            sqlCommand.Parameters.AddWithValue("@сlLogin",client.Login);
+            sqlCommand.Parameters.AddWithValue("@abid", int.Parse(inf));
+
+            try
+            {
+                if (sqlCommand.ExecuteNonQuery() == 0)
+                {
+                    string response = "База Данных: Данные о клиенте не изменены ";
+                    Console.WriteLine(response);
+
+                    return response;
+                }
+                else
+                {
+                    string response = "Абонемент добавлен ";
+                    Console.WriteLine(response + " (Id: " + client.ID + ") (Абонемент: " + client.AbonementId + ")");
+
+                    return response;
+                }
+            }
+            catch (Microsoft.Data.SqlClient.SqlException ex)
+            {
+                string response = "rtgfhghg";
+                Console.WriteLine(ex.Message);
+                return response;
+            }
+
+        }
+        static public string SetTrainer(Client client, string inf)
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandText = "UPDATE [Clients] SET trainerid = @trid Where login = '" + client.Login + "'";
+
+            sqlCommand.Connection = sqlConnection;
+
+            sqlCommand.Parameters.AddWithValue("@сlLogin", client.Login);
+            sqlCommand.Parameters.AddWithValue("@trid", int.Parse(inf));
+
+            try
+            {
+                if (sqlCommand.ExecuteNonQuery() == 0)
+                {
+                    string response = "База Данных: Данные о клиенте не изменены ";
+                    Console.WriteLine(response);
+
+                    return response;
+                }
+                else
+                {
+                    string response = "Тренер добавлен ";
+                    Console.WriteLine(response + " (Id: " + client.ID + ") (Тренер: " + client.AbonementId + ")");
+
+                    return response;
+                }
+            }
+            catch (Microsoft.Data.SqlClient.SqlException ex)
+            {
+                string response = "rtgfhghg";
+                Console.WriteLine(ex.Message);
+                return response;
+            }
+
+        }
+        static public string ChangeClient(Client client)
         {
             SqlCommand sqlCommand = new SqlCommand();
             sqlCommand.CommandText = "UPDATE [Person] SET gender = @clGender, name = @clName, surname = @clSurname, thirdname = @clThirdname," +

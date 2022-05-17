@@ -19,7 +19,8 @@ namespace Server
                 Age = "";
                 Login = "";
                 Password = "";
-                
+            AbonementId = "";
+            TrainerId = "";
             }
 
             public string Search { get; set; }
@@ -31,7 +32,9 @@ namespace Server
             public string Email { get; set; }
             public string Age { get; set; }
             public string Access { get; set; }
-            public virtual void Clean()
+        public string AbonementId { get; set; }
+        public string TrainerId { get; set; }
+        public virtual void Clean()
             {
                 this.Search = "";
                 this.ID = "";
@@ -45,6 +48,8 @@ namespace Server
                 this.Access = "";
                 this.Login = "";
                 this.Password = "";
+            this.AbonementId = "";
+            this.TrainerId = "";
             }
         }
 }

@@ -56,13 +56,8 @@ namespace Server
                         userCounter++;
                         WriteStatistic();
                     }
-                    if (status == 0 && ((builder.ToString() == "GET CLIENT INFO") ||
-                                        (builder.ToString() == "SELECT OPERATIONS") ||
-                                        (builder.ToString() == "ADD OPERATION") ||
-                                        (builder.ToString() == "RED trainer ACCESS") ||
-                                        (builder.ToString() == "DELETE trainer") ||
-                                        (builder.ToString() == "GET MARKS") ||
-                                        (builder.ToString() == "EXPERT MARKS") ||
+                    if (status == 0 && (
+                                        (builder.ToString() == "DELETE TRAINER") ||
                                         (builder.ToString() == "LOG IN") ||
                                         (builder.ToString() == "REGISTRATION") ||
                                         (builder.ToString() == "SELECT CLIENT") ||
@@ -76,7 +71,9 @@ namespace Server
                                         (builder.ToString() == "UPDATE ABONEMENT") ||
                                         (builder.ToString() == "READ ABONEMENTS") ||
                                         (builder.ToString() == "READ TRAINERS") ||
-                                        (builder.ToString() == "READ CLIENTS")))
+                                        (builder.ToString() == "READ CLIENTS") ||
+                                        (builder.ToString() == "SET ABONEMENT") ||
+                                        (builder.ToString() == "SET TRAINER")))
                     {
                         command = builder.ToString();
                         ++status;
@@ -88,6 +85,40 @@ namespace Server
                         {
                             switch (command)
                             {
+                                case "SET TRAINER":
+                                    {
+                                        if (client.Login == "")
+                                        {
+                                            client.Login = builder.ToString();
+                                        }
+                                        else
+                                        {
+                                            string inf = builder.ToString();
+                                            string response = SqlCommander.SetTrainer(client, inf);
+                                            data = Encoding.Unicode.GetBytes(response);
+                                            handler.Send(data);
+                                            Clear(trainer, Abonement, client, logIn, expert);
+                                        }
+
+                                    }
+                                    break;
+                                case "SET ABONEMENT":
+                                    {
+                                        if (client.Login == "")
+                                        {
+                                            client.Login = builder.ToString();
+                                        }
+                                        else
+                                        {
+                                            string inf = builder.ToString();
+                                            string response = SqlCommander.SetAbonement(client, inf);
+                                            data = Encoding.Unicode.GetBytes(response);
+                                            handler.Send(data);
+                                            Clear(trainer, Abonement, client, logIn, expert);
+                                        }
+
+                                    }
+                                    break;
                                 case "LOG IN":
                                     {
                                         if (client.Login == "")
@@ -122,7 +153,8 @@ namespace Server
                                     break;
                                 case "READ ABONEMENTS":
                                     {
-                                        DataTable dataTable = SqlCommander.GetAbonements("All");
+                                        string find = builder.ToString();
+                                        DataTable dataTable = SqlCommander.GetAbonements(find);
                                         byte[] responseData = GetBinaryFormatData(dataTable);
                                         handler.Send(responseData);
                                         Clear(trainer, Abonement, client, logIn, expert);
@@ -130,7 +162,8 @@ namespace Server
                                     break;
                                 case "READ TRAINERS":
                                     {
-                                        DataTable dataTable = SqlCommander.GetTrainers("All");
+                                        string find = builder.ToString();
+                                        DataTable dataTable = SqlCommander.GetTrainers(find);
                                         byte[] responseData = GetBinaryFormatData(dataTable);
                                         handler.Send(responseData);
                                         Clear(trainer, Abonement, client, logIn, expert);
