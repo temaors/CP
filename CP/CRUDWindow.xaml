@@ -137,8 +137,8 @@
                                             <DataGridTextColumn Binding="{Binding gender}" Header="Пол" />
                                             <DataGridTextColumn Binding="{Binding age}" Header="Возраст" />
                                             <DataGridTextColumn Binding="{Binding access}" Header="Доступ" />
-                                            <DataGridTextColumn Binding="{Binding abonementID}" Header="Абонемент" />
-                                            <DataGridTextColumn Binding="{Binding trainerID}" Header="Тренер" />
+                                            <DataGridTextColumn Binding="{Binding abonementid}" Header="Абонемент" />
+                                            <DataGridTextColumn Binding="{Binding trainerid}" Header="Тренер" />
                                         </DataGrid.Columns>
                                     </DataGrid>
                                 </StackPanel>

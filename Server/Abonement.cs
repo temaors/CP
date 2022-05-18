@@ -13,6 +13,8 @@ namespace Server
         public string Term { get; set; }
         public string Cost { get; set; }
         public string ID { get; set; }
+
+        public string Search { get; set; }
         public void Clean()
         {
             Term = "";
@@ -20,6 +22,7 @@ namespace Server
             ID = "";
             CountOfAttendents = "";
             Cost = "";
+            Search = "";
         }
     }
 }

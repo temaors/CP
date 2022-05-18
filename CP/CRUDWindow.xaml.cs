@@ -81,6 +81,25 @@ namespace CP
             }
         }
 
+        private void findTrainers(object sender, RoutedEventArgs e)
+        {
+            ClientObject.SendRequestToServer("READ TRAINERS");
+            System.Threading.Thread.Sleep(timeout);
+            if (trfindID.Text == "")
+            {
+                DataTable dataTable = ClientObject.SendSelectRequestToServer("All");
+                System.Threading.Thread.Sleep(timeout);
+                ClientsTable_Find.ItemsSource = dataTable.DefaultView;
+            }
+            else
+            {
+                ClientObject.SendRequestToServer(findID.Text);
+                System.Threading.Thread.Sleep(timeout);
+                DataTable dataTable = ClientObject.SendSelectRequestToServer(trComboBoxFind.Text);
+                System.Threading.Thread.Sleep(timeout);
+                ClientsTable_Find.ItemsSource = dataTable.DefaultView;
+            }
+        }
         private void ReadInfo()
         {
             ClientObject.SendRequestToServer("READ CLIENTS");
@@ -109,7 +128,26 @@ namespace CP
 
         private void AddTrainer(object sender, RoutedEventArgs e)
         {
-
+            if (AddTrID.Text == "" || AddTrThirdName.Text == "" || AddTrSurname.Text == "" || AddTrName.Text == "" || AddTrType.Text == "" || AddTrCost.Text == "")
+            {
+                trerrAddLabel.Content = "Поля для ввода должны быть заполнены!";
+            }
+            else
+            {
+                ClientObject.SendRequestToServer("ADD TRAINER");
+                System.Threading.Thread.Sleep(timeout);
+                ClientObject.SendRequestToServer(AddTrID.Text);
+                System.Threading.Thread.Sleep(timeout);
+                ClientObject.SendRequestToServer(AddTrSurname.Text);
+                System.Threading.Thread.Sleep(timeout);
+                ClientObject.SendRequestToServer(AddTrName.Text);
+                System.Threading.Thread.Sleep(timeout);
+                ClientObject.SendRequestToServer(AddTrThirdName.Text);
+                System.Threading.Thread.Sleep(timeout);
+                ClientObject.SendRequestToServer(AddTrType.Text);
+                System.Threading.Thread.Sleep(timeout);
+                trerrAddLabel.Content = ClientObject.SendRequestToServer(AddTrCost.Text);
+            }
         }
     }
 }

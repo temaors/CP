@@ -144,6 +144,35 @@ namespace Server
             }
         }
 
+        static public string AddTrainer(Trainer trainer)
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandText = "INSERT into [Trainers](ID, Surname, Name, ThirdName, Type, Cost)" +
+                "values(@trID, @trSurname, @trName, @trThirdName, @trType, @trCost)";
+
+            sqlCommand.Connection = sqlConnection;
+
+            sqlCommand.Parameters.AddWithValue("@trID", int.Parse(trainer.ID) );
+            sqlCommand.Parameters.AddWithValue("@trSurname", trainer.Surname);
+            sqlCommand.Parameters.AddWithValue("@trName", trainer.Name);
+            sqlCommand.Parameters.AddWithValue("@trThirdName", trainer.ThirdName);
+            sqlCommand.Parameters.AddWithValue("@trType", trainer.Type);
+            sqlCommand.Parameters.AddWithValue("@trCost", int.Parse(trainer.Cost));
+            try
+            {
+                sqlCommand.ExecuteNonQuery();
+                string response = "База Данных: Добавлены данные о тренере ";
+                //Console.WriteLine(response + " (ID: " + abonement.ID + ") (Тип тренировок: " + abonement.TypeOfTraining + ") (Срок:  " + abonement.Term + ") (Количество посещений: " + abonement.CountOfAttendents + " (Цена: " + abonement.Cost + ")");
+                return response;
+            }
+            catch (Microsoft.Data.SqlClient.SqlException)
+            {
+                string response = "База Данных: Информация не добавлена ";
+                Console.WriteLine(response);
+                return response;
+            }
+        }
+
         static public string ChangeAbonement(Abonement abonement)
         {
             SqlCommand sqlCommand = new SqlCommand();
@@ -319,11 +348,30 @@ namespace Server
             sqlDataAdapter.Fill(dataTable);
             return dataTable;
         }
-        static public DataTable GetAbonements(string inf)
+        static public DataTable GetAbonements(string inf, Abonement abonement)
         {
             SqlCommand sqlCommand = new SqlCommand();
             try
             {
+                switch (inf)
+                {
+                    case "All":
+                        break;
+                    case "ID":
+                        break;
+                    case "":
+                        break;
+                    case "Имени":
+                        break;
+                    case "Отчеству":
+                        break;
+                    case "Цене":
+                        break;
+                    case "Типу тренировок":
+                        break;
+                    default:
+                        break;
+                }
                 if (inf == "All")
                 {
                     Console.WriteLine("Запрос данных об абонементах.");
@@ -333,7 +381,7 @@ namespace Server
                 else
                 {
                     Console.WriteLine("Запрос данных об абонементах.");
-                    sqlCommand.CommandText = "SELECT * FROM [Abonements] Where ID = '" + inf + "'";
+                    sqlCommand.CommandText = "SELECT * FROM [Abonements] Where id = '" + int.Parse(inf) + "'";
                     sqlCommand.Connection = sqlConnection;
                 }
             }
@@ -346,23 +394,40 @@ namespace Server
             sqlDataAdapter.Fill(dataTable);
             return dataTable;
         }
-        static public DataTable GetTrainers(string inf)
+        static public DataTable GetTrainers(string inf, string find)
         {
             SqlCommand sqlCommand = new SqlCommand();
             try
             {
-                if (inf == "All")
+                Console.WriteLine("Запрос данных о тренерах.");
+                switch (find)
                 {
-                    Console.WriteLine("Запрос данных о тренерах.");
-                    sqlCommand.CommandText = "SELECT * FROM [Trainers]";
-                    sqlCommand.Connection = sqlConnection;
+                    case "All":
+                        
+                        sqlCommand.CommandText = "SELECT * FROM [Trainers]";
+                        break;
+                    case "ID":
+                        sqlCommand.CommandText = "SELECT * FROM [Trainers] Where id = '" + int.Parse(inf) + "'";
+                        break;
+                    case "Фамилии":
+                        sqlCommand.CommandText = "SELECT * FROM [Trainers] Where surname = '" + inf + "'";
+                        break;
+                    case "Имени":
+                        sqlCommand.CommandText = "SELECT * FROM [Trainers] Where name = '" + inf + "'";
+                        break;
+                    case "Отчеству":
+                        sqlCommand.CommandText = "SELECT * FROM [Trainers] Where thirdname = '" + inf + "'";
+                        break;
+                    case "Стоимости":
+                        sqlCommand.CommandText = "SELECT * FROM [Trainers] Where cost = '" + inf + "'";
+                        break;
+                    case "Спецификации":
+                        sqlCommand.CommandText = "SELECT * FROM [Trainers] Where type = '" + inf + "'";
+                        break;
+                    default:
+                        break;
                 }
-                else
-                {
-                    Console.WriteLine("Запрос данных о тренерах.");
-                    sqlCommand.CommandText = "SELECT * FROM [Trainers] Where ID = '" + inf + "'";
-                    sqlCommand.Connection = sqlConnection;
-                }
+                sqlCommand.Connection = sqlConnection;
             }
             catch (Microsoft.Data.SqlClient.SqlException ex)
             {

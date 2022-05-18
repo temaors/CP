@@ -14,7 +14,7 @@ namespace Server
         public string ThirdName { get; set; }
         public string Type { get; set; }
         public string Cost { get; set; }
-
+        public string Search { get; set; }
         public void Clean()
         {
             ID = "";
@@ -23,6 +23,7 @@ namespace Server
             ThirdName = "";
             Type = "";
             Cost = "";
+            Search = "";
         }
     }
 }

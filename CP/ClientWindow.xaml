@@ -26,8 +26,53 @@
                         <TextBlock FontSize="15" Height="30" Width="130">Возраст:</TextBlock>
                         <TextBlock FontSize="15" Height="30" Width="130">Пол:</TextBlock>
                         <TextBlock FontSize="15" Height="30" Width="130">Email:</TextBlock>
-                        <TextBlock FontSize="15" Height="30" Width="130">Личный тренер:</TextBlock>
-                        <TextBlock FontSize="15" Height="30" Width="130">Абонемент:</TextBlock>
+                        <TextBlock FontSize="15" Height="30" Width="130" Text="Личный тренер">
+                            <TextBlock.ToolTip>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0">
+                                        <TextBlock Margin="0,4">Фамилия:</TextBlock>
+                                        <TextBlock Margin="0,4">Имя:</TextBlock>
+                                        <TextBlock Margin="0,4">Отчество:</TextBlock>
+                                        <TextBlock Margin="0,4">Тип тренировок:</TextBlock>
+                                        <TextBlock Margin="0,4">Стоимость:</TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1">
+                                        <Label x:Name="trToolTipSurname"></Label>
+                                        <Label x:Name="trToolTipName"></Label>
+                                        <Label x:Name="trToolTipThirdname"></Label>
+                                        <Label x:Name="trToolTipType"></Label>
+                                        <Label x:Name="trToolTipCost"></Label>
+                                    </StackPanel>
+                                </Grid>
+                            </TextBlock.ToolTip>
+                        </TextBlock>
+                        <TextBlock FontSize="15" Height="30" Width="130" Text="Абонемент">
+                            <TextBlock.ToolTip>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0">
+                                        <TextBlock Margin="0,4">Тип:</TextBlock>
+                                        <TextBlock Margin="0,4">Количество посещений:</TextBlock>
+                                        <TextBlock Margin="0,4">Цена:</TextBlock>
+                                        <TextBlock Margin="0,4">Срок действия:</TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1">
+                                        <Label x:Name="abToolTipType"></Label>
+                                        <Label x:Name="abToolTipCount"></Label>
+                                        <Label x:Name="abToolTipCost"></Label>
+                                        <Label x:Name="abToolTipTerm"></Label>
+                                    </StackPanel>
+                                </Grid>
+                                
+                            </TextBlock.ToolTip>
+                        </TextBlock>
                     </StackPanel>
                     <StackPanel Grid.Column="1" HorizontalAlignment="Left" Margin="30">
                         <Label x:Name="surname" FontSize="15" Height="30" Width="150"></Label>
@@ -36,8 +81,6 @@
                         <Label x:Name="age" FontSize="15" Height="30" Width="150"></Label>
                         <Label x:Name="sex" FontSize="15" Height="30" Width="150"></Label>
                         <Label x:Name="email" FontSize="15" Height="30" Width="150"></Label>
-                        <Label x:Name="trainer" FontSize="15" Height="30" Width="150"></Label>
-                        <Label x:Name="abonement" FontSize="15" Height="30" Width="150"></Label>
                     </StackPanel>
                 </Grid>
             </TabItem.Content>
@@ -54,11 +97,11 @@
                     <DataGrid x:Name="TrainersTable" AutoGenerateColumns="False" HorizontalAlignment="Center" Height="270" VerticalAlignment="Top" Width="800">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding ID}" Header="ID" />
-                            <DataGridTextColumn Binding="{Binding surname}" Header="Фамилия" />
-                            <DataGridTextColumn Binding="{Binding name}" Header="Имя" />
-                            <DataGridTextColumn Binding="{Binding thirdname}" Header="Отчество" />
-                            <DataGridTextColumn Binding="{Binding type}" Header="Спецификация" />
-                            <DataGridTextColumn Binding="{Binding cost}" Header="Стоимость тренировки" />
+                            <DataGridTextColumn Binding="{Binding Surname}" Header="Фамилия" />
+                            <DataGridTextColumn Binding="{Binding Name}" Header="Имя" />
+                            <DataGridTextColumn Binding="{Binding ThirdName}" Header="Отчество" />
+                            <DataGridTextColumn Binding="{Binding Type}" Header="Спецификация" />
+                            <DataGridTextColumn Binding="{Binding Cost}" Header="Стоимость тренировки" />
                         </DataGrid.Columns>
                     </DataGrid>
                     <Grid>
@@ -83,13 +126,13 @@
             </TabItem.Header>
             <TabItem.Content>
                 <StackPanel Margin="25">
-                    <DataGrid x:Name="AbonementsTable" HorizontalAlignment="Center" Width="800" Height="270">
+                    <DataGrid x:Name="AbonementsTable" HorizontalAlignment="Center" Width="800" Height="270" AutoGenerateColumns="False">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding ID}" Header="ID" />
-                            <DataGridTextColumn Binding="{Binding countofattendings}" Header="Количество посещений" />
-                            <DataGridTextColumn Binding="{Binding cost}" Header="Цена" />
-                            <DataGridTextColumn Binding="{Binding type}" Header="Тип тренеровок" />
-                            <DataGridTextColumn Binding="{Binding term}" Header="Срок действия" />
+                            <DataGridTextColumn Binding="{Binding CountOfAttendings}" Header="Количество посещений" />
+                            <DataGridTextColumn Binding="{Binding Price}" Header="Цена" />
+                            <DataGridTextColumn Binding="{Binding TypeOfTrainings}" Header="Тип тренеровок" />
+                            <DataGridTextColumn Binding="{Binding Term}" Header="Срок действия" />
                         </DataGrid.Columns>
                     </DataGrid>
                     <Grid>
