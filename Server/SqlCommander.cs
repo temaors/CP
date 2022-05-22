@@ -353,37 +353,30 @@ namespace Server
             SqlCommand sqlCommand = new SqlCommand();
             try
             {
-                switch (inf)
+                switch (abonement.Search)
                 {
                     case "All":
+                        sqlCommand.CommandText = "SELECT * FROM [Abonements]";
                         break;
                     case "ID":
+                        sqlCommand.CommandText = "SELECT * FROM [Abonements]";
                         break;
-                    case "":
+                    case "Сроку действия":
+                        sqlCommand.CommandText = "SELECT * FROM [Abonements]";
                         break;
-                    case "Имени":
+                    case "Стоимости":
+                        sqlCommand.CommandText = "SELECT * FROM [Abonements]";
                         break;
-                    case "Отчеству":
-                        break;
-                    case "Цене":
+                    case "Количеству посещений":
+                        sqlCommand.CommandText = "SELECT * FROM [Abonements]";
                         break;
                     case "Типу тренировок":
+                        sqlCommand.CommandText = "SELECT * FROM [Abonements]";
                         break;
                     default:
                         break;
                 }
-                if (inf == "All")
-                {
-                    Console.WriteLine("Запрос данных об абонементах.");
-                    sqlCommand.CommandText = "SELECT * FROM [Abonements]";
-                    sqlCommand.Connection = sqlConnection;
-                }
-                else
-                {
-                    Console.WriteLine("Запрос данных об абонементах.");
-                    sqlCommand.CommandText = "SELECT * FROM [Abonements] Where id = '" + int.Parse(inf) + "'";
-                    sqlCommand.Connection = sqlConnection;
-                }
+                sqlCommand.Connection = sqlConnection;
             }
             catch (Microsoft.Data.SqlClient.SqlException ex)
             {
@@ -403,7 +396,6 @@ namespace Server
                 switch (find)
                 {
                     case "All":
-                        
                         sqlCommand.CommandText = "SELECT * FROM [Trainers]";
                         break;
                     case "ID":
@@ -437,6 +429,51 @@ namespace Server
             DataTable dataTable = new DataTable("Trainers");
             sqlDataAdapter.Fill(dataTable);
             return dataTable;
+        }
+        static public DataTable GetReport(string inf)
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            try
+            {
+                Console.WriteLine("Запрос данных об отчёте.");
+                sqlCommand.CommandText = "SELECT * FROM [transactions] ";
+                sqlCommand.Connection = sqlConnection;
+            }
+            catch (Microsoft.Data.SqlClient.SqlException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
+            DataTable dataTable = new DataTable("transactions");
+            sqlDataAdapter.Fill(dataTable);
+            return dataTable;
+        }
+
+        static public string AddReport(Report report)
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandText = "INSERT into [transactions](transactionid, cost, date, clientid)" +
+                "values(@trID, @trCost, @trDate, @trClientID)";
+
+            sqlCommand.Connection = sqlConnection;
+
+            sqlCommand.Parameters.AddWithValue("@trID", int.Parse(report.TransactionID));
+            sqlCommand.Parameters.AddWithValue("@trCost", int.Parse(report.Cost));
+            sqlCommand.Parameters.AddWithValue("@trDate", report.Date);
+            sqlCommand.Parameters.AddWithValue("@trClientID", int.Parse(report.ClientID));
+            try
+            {
+                sqlCommand.ExecuteNonQuery();
+                string response = "База Данных: Добавлены данные в отчёт ";
+                //Console.WriteLine(response + " (ID: " + abonement.ID + ") (Тип тренировок: " + abonement.TypeOfTraining + ") (Срок:  " + abonement.Term + ") (Количество посещений: " + abonement.CountOfAttendents + " (Цена: " + abonement.Cost + ")");
+                return response;
+            }
+            catch (Microsoft.Data.SqlClient.SqlException)
+            {
+                string response = "База Данных: Информация в отчёт не добавлена ";
+                Console.WriteLine(response);
+                return response;
+            }
         }
 
         static public string SetAbonement(Client client, string inf)

@@ -1,0 +1,26 @@
+﻿<Window x:Class="CP.ReportWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CP"
+        mc:Ignorable="d"
+        Title="ReportWindow" Height="450" Width="600">
+    <StackPanel Margin="0,30">
+        <Grid Margin="0,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Width="200"></Button>
+        </Grid>
+        <DataGrid x:Name="ReportTable" AutoGenerateColumns="False" Height="240" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding transactionid}" Header="ID операции" />
+                <DataGridTextColumn Binding="{Binding cost}" Header="Сумма операции" />
+                <DataGridTextColumn Binding="{Binding date}" Header="Дата операции" />
+                <DataGridTextColumn Binding="{Binding clientid}" Header="ID клиента" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </StackPanel>
+</Window>

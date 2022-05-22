@@ -1,4 +1,4 @@
-﻿<Window x:Class="CP.ClientWindow"
+﻿<Window x:Class="CP.ClientWindow" BorderBrush="Purple" BorderThickness="2.5"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -14,12 +14,17 @@
                 </StackPanel>
             </TabItem.Header>
             <TabItem.Content>
-                <Grid ShowGridLines="True">
+                <Grid ShowGridLines="True" >
+                    <Grid.Background>
+                        <ImageBrush/>
+                    </Grid.Background>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="170"></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="302*"></ColumnDefinition>
+                        <ColumnDefinition Width="187"></ColumnDefinition>
+                        <ColumnDefinition Width="411*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <StackPanel Grid.Column="0" HorizontalAlignment="Left" Margin="30">
+                    <Image Source="client.png" Margin="0,0,24,113"/>
+                    <StackPanel Grid.Column="1" HorizontalAlignment="Center" Margin="0,30,0,30" Width="130">
                         <TextBlock FontSize="15" Height="30" Width="130">Фамилия:</TextBlock>
                         <TextBlock FontSize="15" Height="30" Width="130">Имя:</TextBlock>
                         <TextBlock FontSize="15" Height="30" Width="130">Отчество:</TextBlock>
@@ -70,17 +75,17 @@
                                         <Label x:Name="abToolTipTerm"></Label>
                                     </StackPanel>
                                 </Grid>
-                                
+
                             </TextBlock.ToolTip>
                         </TextBlock>
                     </StackPanel>
-                    <StackPanel Grid.Column="1" HorizontalAlignment="Left" Margin="30">
-                        <Label x:Name="surname" FontSize="15" Height="30" Width="150"></Label>
-                        <Label x:Name="name" FontSize="15" Height="30" Width="150"></Label>
-                        <Label x:Name="thirdname" FontSize="15" Height="30" Width="150"></Label>
-                        <Label x:Name="age" FontSize="15" Height="30" Width="150"></Label>
-                        <Label x:Name="sex" FontSize="15" Height="30" Width="150"></Label>
-                        <Label x:Name="email" FontSize="15" Height="30" Width="150"></Label>
+                    <StackPanel Grid.Column="2" HorizontalAlignment="Left" Margin="30,30,0,30" Width="150">
+                        <Label x:Name="surname" FontSize="15" Height="30" Width="170"></Label>
+                        <Label x:Name="name" FontSize="15" Height="30" Width="170"></Label>
+                        <Label x:Name="thirdname" FontSize="15" Height="30" Width="170"></Label>
+                        <Label x:Name="age" FontSize="15" Height="30" Width="170"></Label>
+                        <Label x:Name="sex" FontSize="15" Height="30" Width="170"></Label>
+                        <Label x:Name="email" FontSize="15" Height="30" Width="170"></Label>
                     </StackPanel>
                 </Grid>
             </TabItem.Content>
@@ -131,7 +136,7 @@
                             <DataGridTextColumn Binding="{Binding ID}" Header="ID" />
                             <DataGridTextColumn Binding="{Binding CountOfAttendings}" Header="Количество посещений" />
                             <DataGridTextColumn Binding="{Binding Price}" Header="Цена" />
-                            <DataGridTextColumn Binding="{Binding TypeOfTrainings}" Header="Тип тренеровок" />
+                            <DataGridTextColumn Binding="{Binding TypeOfTraining}" Header="Тип тренеровок" />
                             <DataGridTextColumn Binding="{Binding Term}" Header="Срок действия" />
                         </DataGrid.Columns>
                     </DataGrid>

@@ -109,6 +109,10 @@ namespace CP
             DataTable dataTable = ClientObject.SendSelectRequestToServer("All");
             System.Threading.Thread.Sleep(timeout);
             ClientsTable_Delete.ItemsSource = dataTable.DefaultView;
+            for (int i = 0; i < dataTable.Rows.Count; i++)
+            {
+                ComboBoxLogin.Items.Add(dataTable.Rows[i][0]);
+            }
         }
         private void DeleteClient(object sender, RoutedEventArgs e)
         {
@@ -148,6 +152,26 @@ namespace CP
                 System.Threading.Thread.Sleep(timeout);
                 trerrAddLabel.Content = ClientObject.SendRequestToServer(AddTrCost.Text);
             }
+        }
+
+        private void LoadClient(object sender, RoutedEventArgs e)
+        {
+            ClientObject.SendRequestToServer("READ CLIENTS");
+            System.Threading.Thread.Sleep(timeout);
+            ClientObject.SendRequestToServer(ComboBoxLogin.Text);
+            System.Threading.Thread.Sleep(timeout);
+            DataTable dataTable = ClientObject.SendSelectRequestToServer("ID");
+            System.Threading.Thread.Sleep(timeout);
+            clID.Text = dataTable.Rows[0][0].ToString();
+            clLogin.Text = dataTable.Rows[0][1].ToString();
+            clPassword.Text = dataTable.Rows[0][2].ToString();
+            clSurname.Text = dataTable.Rows[0][3].ToString();
+            clName.Text = dataTable.Rows[0][4].ToString();
+            clThirdname.Text = dataTable.Rows[0][5].ToString();
+            clEmail.Text = dataTable.Rows[0][6].ToString();
+            clGender.Text = dataTable.Rows[0][7].ToString();
+            clAge.Text = dataTable.Rows[0][8].ToString();
+            clAccess.Text = dataTable.Rows[0][9].ToString();
         }
     }
 }

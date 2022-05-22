@@ -8,9 +8,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="admin.png" />
+    <None Remove="client.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Dragablz" Version="0.0.3.223" />
     <PackageReference Include="MaterialDesignThemes" Version="4.4.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="admin.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="client.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

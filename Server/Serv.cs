@@ -35,8 +35,9 @@ namespace Server
                 Client client = new Client();
                 LogIn logIn = new LogIn();
                 Expert expert = new Expert();
+                Report report = new Report();
                 
-                Clear(trainer, Abonement, client, logIn, expert);
+                Clear(trainer, Abonement, client, logIn, expert, report);
 
 
                 while (true)
@@ -74,7 +75,10 @@ namespace Server
                                         (builder.ToString() == "READ TRAINERS") ||
                                         (builder.ToString() == "READ CLIENTS") ||
                                         (builder.ToString() == "SET ABONEMENT") ||
-                                        (builder.ToString() == "SET TRAINER")))
+                                        (builder.ToString() == "SET TRAINER") ||
+                                        (builder.ToString() == "READ REPORT") ||
+                                        (builder.ToString() == "UPDATE REPORT") ||
+                                        (builder.ToString() == "EXPERT")))
                     {
                         command = builder.ToString();
                         ++status;
@@ -86,6 +90,79 @@ namespace Server
                         {
                             switch (command)
                             {
+                                case "EXPERT":
+                                    {
+                                        DataTable dataTable = SqlCommander.GetTrainers("All", "All");
+                                        int[] nums = new int[dataTable.Rows.Count];
+                                        int[] nums2 = new int[dataTable.Rows.Count];
+                                        int max = 0;
+                                        for (int i = 0; i < dataTable.Rows.Count; i++)
+                                        {
+                                            nums[i] = int.Parse((string)dataTable.Rows[1][i]);
+                                            nums2[i] = i + 1;
+                                            if (nums[i] > max)
+                                            {
+                                                max = nums[i];
+                                            }
+                                        }
+                                        max = max * dataTable.Rows.Count / 100;
+                                        for (int i = 0; i < dataTable.Rows.Count; i++)
+                                        {
+                                            for (int j = 0; j < dataTable.Rows.Count; j++)
+                                            {
+                                                expert.matrix[i][j] = (100 - (nums[i] * nums2[j])) / max;
+                                            }
+                                        }
+                                    }
+                                    break;
+                                case "READ REPORT":
+                                    {
+                                        if (client.Search == "")
+                                        {
+                                            client.Search = builder.ToString();
+                                        }
+                                        else
+                                        {
+                                            string find = builder.ToString();
+                                            DataTable dataTable = SqlCommander.GetReport(find);
+                                            byte[] responseData = GetBinaryFormatData(dataTable);
+                                            handler.Send(responseData);
+                                            Clear(trainer, Abonement, client, logIn, expert, report);
+                                        }
+                                    }
+                                    break;
+                                case "UPDATE REPORT":
+                                    {
+                                        if(report.TransactionID == "")
+                                        {
+                                            report.TransactionID = builder.ToString();
+                                        }
+                                        else
+                                        {
+                                           if (report.Cost == "")
+                                            {
+                                                report.Cost = builder.ToString();
+                                            }
+                                            else
+                                            {
+                                                if(report.Date == "")
+                                                {
+                                                    report.Date = builder.ToString();
+
+                                                }
+                                                else
+                                                {
+                                                    report.ClientID = builder.ToString();
+                                                    string response = SqlCommander.AddReport(report);
+                                                    data = Encoding.Unicode.GetBytes(response);
+                                                    handler.Send(data);
+                                                    Clear(trainer, Abonement, client, logIn, expert, report);
+                                                }
+                                            }
+                                        }
+
+                                    }
+                                    break;
                                 case "SET TRAINER":
                                     {
                                         if (client.Login == "")
@@ -98,7 +175,7 @@ namespace Server
                                             string response = SqlCommander.SetTrainer(client, inf);
                                             data = Encoding.Unicode.GetBytes(response);
                                             handler.Send(data);
-                                            Clear(trainer, Abonement, client, logIn, expert);
+                                            Clear(trainer, Abonement, client, logIn, expert, report);
                                         }
 
                                     }
@@ -115,7 +192,7 @@ namespace Server
                                             string response = SqlCommander.SetAbonement(client, inf);
                                             data = Encoding.Unicode.GetBytes(response);
                                             handler.Send(data);
-                                            Clear(trainer, Abonement, client, logIn, expert);
+                                            Clear(trainer, Abonement, client, logIn, expert, report);
                                         }
 
                                     }
@@ -132,7 +209,7 @@ namespace Server
                                             string response = SqlCommander.LogIn(client);
                                             data = Encoding.Unicode.GetBytes(response);
                                             handler.Send(data);
-                                            Clear(trainer, Abonement, client, logIn, expert);
+                                            Clear(trainer, Abonement, client, logIn, expert, report);
                                         }
                                     }
                                     break;
@@ -148,7 +225,7 @@ namespace Server
                                             DataTable dataTable = SqlCommander.GetClients(find, client);
                                             byte[] responseData = GetBinaryFormatData(dataTable);
                                             handler.Send(responseData);
-                                            Clear(trainer, Abonement, client, logIn, expert);
+                                            Clear(trainer, Abonement, client, logIn, expert, report);
                                         }
                                     }
                                     break;
@@ -161,10 +238,10 @@ namespace Server
                                         else
                                         {
                                             string find = builder.ToString();
-                                            DataTable dataTable = SqlCommander.GetAbonements(find, Abonement.Search);
+                                            DataTable dataTable = SqlCommander.GetAbonements(find, Abonement);
                                             byte[] responseData = GetBinaryFormatData(dataTable);
                                             handler.Send(responseData);
-                                            Clear(trainer, Abonement, client, logIn, expert);
+                                            Clear(trainer, Abonement, client, logIn, expert, report);
                                         }
                                     }
                                     break;
@@ -180,7 +257,7 @@ namespace Server
                                             DataTable dataTable = SqlCommander.GetTrainers(find, trainer.Search);
                                             byte[] responseData = GetBinaryFormatData(dataTable);
                                             handler.Send(responseData);
-                                            Clear(trainer, Abonement, client, logIn, expert);
+                                            Clear(trainer, Abonement, client, logIn, expert, report);
                                         }
                                     }
                                     break;
@@ -190,7 +267,7 @@ namespace Server
                                         DataTable dataTable = SqlCommander.GetClientInfo(client);
                                         byte[] responseData = GetBinaryFormatData(dataTable);
                                         handler.Send(responseData);
-                                        Clear(trainer, Abonement, client, logIn, expert);
+                                        Clear(trainer, Abonement, client, logIn, expert, report);
                                     }
                                     break;
                                 case "SELECT OPERATIONS":
@@ -199,7 +276,7 @@ namespace Server
                                         DataTable dataTable = SqlCommander.SelectOperations(WorkSQL.info);
                                         byte[] responseData = GetBinaryFormatData(dataTable);
                                         handler.Send(responseData);
-                                        Clear(trainer, Abonement, client, logIn, expert);
+                                        Clear(trainer, Abonement, client, logIn, expert, report);
                                     }
                                     break;
                                 case "DELETE trainer":
@@ -208,77 +285,8 @@ namespace Server
                                         string response = SqlCommander.DelTrainer(trainer);
                                         data = Encoding.Unicode.GetBytes(response);
                                         handler.Send(data);
-                                        Clear(trainer, Abonement, client, logIn, expert);
+                                        Clear(trainer, Abonement, client, logIn, expert, report);
                                     }
-                                    break;
-                                case "RED CLIENT ACCESS":
-                                    {
-                                        client.ID = builder.ToString();
-                                        string response = SqlCommander.ChangeEmplAccess(client.ID);
-                                        data = Encoding.Unicode.GetBytes(response);
-                                        handler.Send(data);
-                                        Clear(trainer, Abonement, client, logIn, expert);
-                                    }
-                                    break;
-                                case "GET MARKS":
-                                    //{
-                                    //    expert.ExpertNum = builder.ToString();
-                                    //    DataTable dataTable = SqlCommander.GetMarks(expert);
-                                    //    byte[] responseData = GetBinaryFormatData(dataTable);
-                                    //    handler.Send(responseData);
-                                    //    Clear(trainer, Abonement, client, logIn, expert);
-                                    //}
-                                    break;
-                                case "EXPERT MARKS":
-                                    //{
-                                    //    if (expert.ExpertNum == "")
-                                    //    {
-                                    //        expert.ExpertNum = builder.ToString();
-                                    //    }
-                                    //    else
-                                    //    {
-                                    //        if (expert.Mark1_2 == "")
-                                    //        {
-                                    //            expert.Mark1_2 = builder.ToString();
-                                    //        }
-                                    //        else
-                                    //        {
-                                    //            if (expert.Mark1_3 == "")
-                                    //            {
-                                    //                expert.Mark1_3 = builder.ToString();
-                                    //            }
-                                    //            else
-                                    //            {
-                                    //                if (expert.Mark1_4 == "")
-                                    //                {
-                                    //                    expert.Mark1_4 = builder.ToString();
-                                    //                }
-                                    //                else
-                                    //                {
-                                    //                    if (expert.Mark2_3 == "")
-                                    //                    {
-                                    //                        expert.Mark2_3 = builder.ToString();
-                                    //                    }
-                                    //                    else
-                                    //                    {
-                                    //                        if (expert.Mark2_4 == "")
-                                    //                        {
-                                    //                            expert.Mark2_4 = builder.ToString();
-                                    //                        }
-                                    //                        else
-                                    //                        {
-                                    //                            expert.Mark3_4 = builder.ToString();
-                                    //                            string response = SqlCommander.ExpertMark(expert);
-                                    //                            data = Encoding.Unicode.GetBytes(response);
-                                    //                            handler.Send(data);
-                                    //                            Clear(trainer, Abonement, client, logIn, expert);
-                                    //                        }
-                                    //                    }
-                                    //                }
-                                    //            }
-                                    //        }
-                                    //    }
-                                    //}
                                     break;
                                 case "REGISTRATION":
                                     {
@@ -335,7 +343,7 @@ namespace Server
                                                                                     string response = SqlCommander.Registration(client);
                                                                                     data = Encoding.Unicode.GetBytes(response);
                                                                                     handler.Send(data);
-                                                                                    Clear(trainer, Abonement, client, logIn, expert);
+                                                                                    Clear(trainer, Abonement, client, logIn, expert, report);
                                                                                 }
                                                                             }
                                                                         
@@ -355,7 +363,7 @@ namespace Server
                                         DataTable dataTable = SqlCommander.SelectClient(client);
                                         byte[] responseData = GetBinaryFormatData(dataTable);
                                         handler.Send(responseData);
-                                        Clear(trainer, Abonement, client, logIn, expert);
+                                        Clear(trainer, Abonement, client, logIn, expert, report);
                                     }
                                     break;
                                 case "ADD TRAINER":
@@ -393,7 +401,7 @@ namespace Server
                                                             string response = SqlCommander.AddTrainer(trainer);
                                                             data = Encoding.Unicode.GetBytes(response);
                                                             handler.Send(data);
-                                                            Clear(trainer, Abonement, client, logIn, expert);
+                                                            Clear(trainer, Abonement, client, logIn, expert, report);
                                                         }
                                                     }
                                                 }
@@ -464,7 +472,7 @@ namespace Server
                                                                                 string response = SqlCommander.AddClient(client);
                                                                                 data = Encoding.Unicode.GetBytes(response);
                                                                                 handler.Send(data);
-                                                                                Clear(trainer, Abonement, client, logIn, expert);
+                                                                                Clear(trainer, Abonement, client, logIn, expert, report);
                                                                             }
                                                                         }
                                                                     }
@@ -483,7 +491,7 @@ namespace Server
                                         string response = SqlCommander.DelClient(client);
                                         data = Encoding.Unicode.GetBytes(response);
                                         handler.Send(data);
-                                        Clear(trainer, Abonement, client, logIn, expert);
+                                        Clear(trainer, Abonement, client, logIn, expert, report);
                                     }
                                     break;
                                 case "UPDATE CLIENT":
@@ -530,7 +538,7 @@ namespace Server
                                                                     string response = SqlCommander.ChangeClient(client);
                                                                     data = Encoding.Unicode.GetBytes(response);
                                                                     handler.Send(data);
-                                                                    Clear(trainer, Abonement, client, logIn, expert);
+                                                                    Clear(trainer, Abonement, client, logIn, expert, report);
                                                                 }
                                                             }
                                                         }
@@ -566,7 +574,7 @@ namespace Server
                                                         string response = SqlCommander.AddAbonement(Abonement);
                                                         data = Encoding.Unicode.GetBytes(response);
                                                         handler.Send(data);
-                                                        Clear(trainer, Abonement, client, logIn, expert);
+                                                        Clear(trainer, Abonement, client, logIn, expert, report);
                                                     }
                                                 }
                                             }
@@ -579,7 +587,7 @@ namespace Server
                                         string response = SqlCommander.DelAbonement(Abonement.ID);
                                         data = Encoding.Unicode.GetBytes(response);
                                         handler.Send(data);
-                                        Clear(trainer, Abonement, client, logIn, expert);
+                                        Clear(trainer, Abonement, client, logIn, expert, report);
                                     }
                                     break;
                                 case "UPDATE ABONEMENT":
@@ -614,7 +622,7 @@ namespace Server
                                                             string response = SqlCommander.ChangeAbonement(Abonement);
                                                             data = Encoding.Unicode.GetBytes(response);
                                                             handler.Send(data);
-                                                            Clear(trainer, Abonement, client, logIn, expert);
+                                                            Clear(trainer, Abonement, client, logIn, expert, report);
                                                         }
                                                     }
                                                 }
@@ -628,7 +636,7 @@ namespace Server
                                         DataTable dataTable = SqlCommander.SelectTrainer(trainer);
                                         byte[] responseData = GetBinaryFormatData(dataTable);
                                         handler.Send(responseData);
-                                        Clear(trainer, Abonement, client, logIn, expert);
+                                        Clear(trainer, Abonement, client, logIn, expert, report);
                                     }
                                     break;
                                 case "SELECT ABONEMENT":
@@ -636,7 +644,7 @@ namespace Server
                                         DataTable dataTable = SqlCommander.SelectAbonement(Abonement);
                                         byte[] responseData = GetBinaryFormatData(dataTable);
                                         handler.Send(responseData);
-                                        Clear(trainer, Abonement, client, logIn, expert);
+                                        Clear(trainer, Abonement, client, logIn, expert, report);
                                     }
                                     break;
                             }
@@ -683,13 +691,14 @@ namespace Server
         {
             Console.WriteLine("\r\n За время работы сервера количество подключенных клиентов: " + userCounter + ".\r\n");
         }
-        static private void Clear(Trainer trainer, Abonement abonement, Client client, LogIn logIn, Expert expert)
+        static private void Clear(Trainer trainer, Abonement abonement, Client client, LogIn logIn, Expert expert, Report report)
         {
             abonement.Clean();
             client.Clean();
             trainer.Clean();
             logIn.Clean();
             expert.Clean();
+            report.Clear();
 
             status = 0;
             command = "";

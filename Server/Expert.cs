@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace Server
 {
-    internal class Expert : WorkSQL
+    internal class Expert
     {
+        public int[][] matrix;
         public void Clean()
         {
-
+            matrix = null;
         }
     }
 }
